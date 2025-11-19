@@ -1,0 +1,232 @@
+---
+// src/pages/first-time.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="初めての方へ｜北摂ペットホーム（仮）">
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
+
+    {/* ヒーロー */}
+    <section class="space-y-4">
+      <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
+        北摂で、ペットとの暮らしを優先した<br class="hidden md:block" />
+        住まい探しをお手伝いします。
+      </h1>
+      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+        「ペット可」と書いてあるのに、いざ詳しく聞くと条件が厳しすぎる・
+        情報がバラバラでよく分からない…。<br class="hidden md:block" />
+        そんなモヤモヤを減らすために、北摂エリアの
+        <span class="font-semibold">ペット可物件に特化</span>した仲介サービスとして、
+        LINEとオンラインを中心にじっくり伴走します。
+      </p>
+      <div class="flex flex-wrap gap-3 pt-1">
+        <a
+          href="/contact/#line"
+          class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+        >
+          まずはLINEで相談してみる
+        </a>
+        <a
+          href="/listings/"
+          class="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+        >
+          物件一覧を見てみる
+        </a>
+      </div>
+    </section>
+
+    {/* サービスの特徴 */}
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold text-slate-900">
+        北摂ペットホーム（仮）の3つの特徴
+      </h2>
+      <div class="grid gap-4 md:grid-cols-3 text-sm text-slate-700">
+        <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col gap-2">
+          <h3 class="font-semibold text-slate-900 text-sm">
+            北摂エリア×ペット可に特化
+          </h3>
+          <p class="leading-relaxed">
+            豊中・箕面・千里中央・茨木・高槻など、
+            北摂エリアに絞って物件をリサーチします。
+            「通勤とペットの通院、どちらも無理のないエリア」を一緒に考えます。
+          </p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col gap-2">
+          <h3 class="font-semibold text-slate-900 text-sm">
+            来店不要、LINEとオンラインが主役
+          </h3>
+          <p class="leading-relaxed">
+            条件のすり合わせ・物件紹介・内見の日程調整・
+            契約のご説明まで、基本的にオンラインで完結します。
+            仕事や通院で忙しい方でも、空き時間でやり取りできます。
+          </p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col gap-2">
+          <h3 class="font-semibold text-slate-900 text-sm">
+            「ペット目線」の説明を重視
+          </h3>
+          <p class="leading-relaxed">
+            ペットの頭数・大きさ・鳴き声・におい・共用部のルールなど、
+            ペット可物件ならではのポイントをできる限り事前に確認し、
+            いい面もリスクも両方お伝えします。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* どんな人に向いているか */}
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold text-slate-900">
+        向いている方・あまり向いていない方
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2 text-sm">
+        <div class="rounded-xl bg-emerald-50 p-4 space-y-2">
+          <h3 class="text-xs font-semibold text-emerald-800">
+            こんな方に向いています
+          </h3>
+          <ul class="list-disc pl-5 space-y-1 text-emerald-900">
+            <li>北摂エリアで、ペット可の賃貸または購入物件を探している方</li>
+            <li>まずはLINEで相談しながら、落ち着いて検討したい方</li>
+            <li>物件の「ペット条件」を丁寧に確認してほしい方</li>
+            <li>内見や契約の前に、不安点を洗い出しておきたい方</li>
+          </ul>
+        </div>
+        <div class="rounded-xl bg-slate-50 p-4 space-y-2">
+          <h3 class="text-xs font-semibold text-slate-800">
+            あまりおすすめできないケース
+          </h3>
+          <ul class="list-disc pl-5 space-y-1 text-slate-900">
+            <li>とにかく一番安い物件だけを優先したい方</li>
+            <li>ペットの申告をせずに入居したい、と考えている方</li>
+            <li>大阪府外のエリアをメインで探している方</li>
+            <li>来店型の大手チェーンで、店舗数や人員の多さを重視する方</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* 利用の流れ */}
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold text-slate-900">
+        ご利用の流れ（オンライン中心）
+      </h2>
+      <ol class="space-y-4 text-sm text-slate-700">
+        <li class="flex gap-3">
+          <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white">
+            1
+          </div>
+          <div class="space-y-1">
+            <p class="font-semibold text-slate-900">LINEで友だち追加＆簡単なヒアリング</p>
+            <p class="leading-relaxed">
+              ページ下部の「LINEで相談」から友だち追加していただき、
+              希望エリア・家賃・入居時期・ペットの種類と頭数などをお伺いします。
+              ざっくりでも大丈夫です。
+            </p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white">
+            2
+          </div>
+          <div class="space-y-1">
+            <p class="font-semibold text-slate-900">
+              条件に近い物件のご提案（オンライン）
+            </p>
+            <p class="leading-relaxed">
+              ヒアリング内容をもとに、条件に近い物件を複数ピックアップしてお送りします。
+              「この方向性は違う」「ここは妥協できる」など、感想をざっくり返してもらえれば、
+              少しずつ候補を絞っていきます。
+            </p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white">
+            3
+          </div>
+          <div class="space-y-1">
+            <p class="font-semibold text-slate-900">
+              内見の日程調整・当日のポイント共有
+            </p>
+            <p class="leading-relaxed">
+              気になる物件があれば、管理会社・オーナーと調整のうえ内見を手配します。
+              当日は「ペットの足音」「共用部の動線」「近隣の生活音」など、
+              見ておきたいポイントも事前に共有します。
+            </p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white">
+            4
+          </div>
+          <div class="space-y-1">
+            <p class="font-semibold text-slate-900">
+              お申し込み・審査・ご契約（オンライン／対面）
+            </p>
+            <p class="leading-relaxed">
+              お申し込みの手続きや入居審査、重要事項のご説明、契約書への署名などを進めます。
+              可能な範囲でオンライン（IT重説・電子契約）も活用しつつ、
+              必要に応じて対面でのご説明も行います。
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    {/* よくあるご質問（ライト版） */}
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold text-slate-900">
+        よくあるご質問（かんたん版）
+      </h2>
+      <div class="space-y-3 text-sm text-slate-700">
+        <div class="rounded-lg bg-white p-4 border border-slate-200">
+          <p class="font-semibold text-slate-900 text-sm">
+            Q. まだ引っ越すかどうか決めていない段階でも相談していいですか？
+          </p>
+          <p class="mt-1 leading-relaxed">
+            A. 大丈夫です。まずは「この条件だとどんな物件がありそうか」を一緒に確認するだけでもOKです。
+            具体的な時期が決まっていなくても、おおよそのイメージを共有してもらえれば十分です。
+          </p>
+        </div>
+        <div class="rounded-lg bg-white p-4 border border-slate-200">
+          <p class="font-semibold text-slate-900 text-sm">
+            Q. ペットの頭数が多い／大型犬ですが、相談できますか？
+          </p>
+          <p class="mt-1 leading-relaxed">
+            A. 条件はかなり絞られますが、まずは正直に状況を教えてください。
+            「ペット情報を隠して入居する」ことはおすすめしていません。
+            その前提で、現実的な選択肢を一緒に探します。
+          </p>
+        </div>
+        <div class="rounded-lg bg-white p-4 border border-slate-200">
+          <p class="font-semibold text-slate-900 text-sm">
+            Q. 他サイトで見つけた物件についても相談できますか？
+          </p>
+          <p class="mt-1 leading-relaxed">
+            A. 可能なものと難しいものがあります。
+            物件名やURLを送っていただければ、取り扱いの可否やペット条件について
+            確認できるかどうかをお伝えします。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* 最後のCTA */}
+    <section class="rounded-2xl bg-emerald-50 px-4 py-6 sm:px-6 sm:py-8 space-y-3">
+      <h2 class="text-lg font-semibold text-emerald-900">
+        まずは、ペットとご家族の状況を教えてください。
+      </h2>
+      <p class="text-sm text-emerald-900 leading-relaxed">
+        「この条件で探せる物件はどれくらいありそうか？」を知るだけでも、
+        住まい探しの不安はかなり軽くなります。<br class="hidden md:block" />
+        相談したからといって、必ず契約しないといけないわけではありません。
+        情報整理の相棒くらいの気持ちで、気軽に使っていただければ十分です。
+      </p>
+      <a
+        href="/contact/#line"
+        class="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800"
+      >
+        LINEで住まい探しの相談をする
+      </a>
+    </section>
+  </main>
+</BaseLayout>

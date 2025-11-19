@@ -1,0 +1,49 @@
+---
+// src/pages/listings/buy.astro
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ListingCard from '../../components/listings/ListingCard.astro';
+import { getListingsByDealType } from '../../data/listings';
+
+const listings = getListingsByDealType('buy').filter(
+  (l) => l.status === 'available',
+);
+---
+
+<BaseLayout
+  title="購入物件一覧｜北摂ペットホーム（仮）"
+  description="北摂エリアのペット可マンション・戸建てを、ペット目線で選べます。"
+>
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+          購入物件一覧
+        </h1>
+        <p class="mt-1 text-sm text-slate-600">
+          いまは掲載物件が少ないかもしれませんが、将来的に購入相談もこちらで受け付けます。
+        </p>
+      </div>
+      <a
+        href="/contact/"
+        class="mt-3 inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 sm:mt-0"
+      >
+        購入の相談をする
+      </a>
+    </header>
+
+    <section aria-label="購入物件一覧">
+      {listings.length === 0 ? (
+        <p class="text-sm text-slate-600">
+          現在、掲載中の購入物件はありません。LINEでご希望条件をお知らせください。
+        </p>
+      ) : (
+        <div class="grid gap-6 md:grid-cols-2">
+          {listings.map((listing) => (
+            <ListingCard listing={listing} />
+          ))}
+        </div>
+      )}
+    </section>
+  </main>
+</BaseLayout>

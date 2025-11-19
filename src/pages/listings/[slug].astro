@@ -1,0 +1,220 @@
+---
+// src/pages/listings/[slug].astro
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Listing } from '../../data/listings';
+import { getAllListings } from '../../data/listings';
+
+export interface Props {
+  listing: Listing;
+}
+
+// ビルド時に「どの slug のページを作るか」を決める
+export function getStaticPaths() {
+  const listings = getAllListings();
+
+  return listings.map((listing) => ({
+    params: { slug: listing.slug },
+    props: { listing },
+  }));
+}
+
+const { listing } = Astro.props as Props;
+
+const isRent = listing.dealType === 'rent';
+const contactUrl = `/contact/?ref=${encodeURIComponent(listing.id)}`;
+---
+
+<BaseLayout
+  title={`${listing.title}｜北摂ペットホーム（仮）`}
+  description={listing.summary}
+>
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="mb-6 space-y-2">
+      <p class="text-xs text-slate-500">{listing.areaLabel}</p>
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+        {listing.title}
+      </h1>
+      <div class="flex flex-wrap items-center gap-2">
+        <span
+          class={`inline-flex items-center rounded-full px-3 py-0.5 text-xs font-semibold ${
+            isRent
+              ? 'bg-sky-50 text-sky-700'
+              : 'bg-emerald-50 text-emerald-700'
+          }`}
+        >
+          {isRent ? '賃貸' : '購入'}
+        </span>
+        <span class="inline-flex items-center rounded-full bg-slate-100 px-3 py-0.5 text-xs text-slate-700">
+          {listing.status === 'available'
+            ? '募集中'
+            : listing.status === 'reserved'
+            ? '申込あり・審査中'
+            : '成約済み（現在募集していません）'}
+        </span>
+        {listing.petTags.map((tag) => (
+          <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-0.5 text-[11px] text-emerald-700">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <p class="mt-2 text-sm text-slate-700">
+        {listing.summary}
+      </p>
+    </header>
+
+    <section class="grid gap-8 md:grid-cols-[2fr,1.4fr]">
+      {/* 左：写真エリア */}
+      <div class="space-y-3">
+        <div class="aspect-4/3 overflow-hidden rounded-xl bg-slate-100">
+          {listing.images?.[0] ? (
+            <img
+              src={listing.images[0]}
+              alt={listing.title}
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div class="flex h-full items-center justify-center text-xs text-slate-400">
+              写真準備中
+            </div>
+          )}
+        </div>
+        {listing.images && listing.images.length > 1 && (
+          <div class="flex gap-2">
+            {listing.images.slice(1).map((img) => (
+              <img
+                src={img}
+                alt={listing.title}
+                class="h-20 w-28 rounded-lg object-cover"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* 右：概要ボックス */}
+      <aside class="space-y-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div class="space-y-1 text-sm">
+          {isRent ? (
+            <>
+              <p class="text-base font-semibold text-slate-900">
+                賃料：{listing.rent?.toLocaleString()}円
+                {listing.managementFee
+                  ? `（管理費 ${listing.managementFee.toLocaleString()}円）`
+                  : null}
+              </p>
+              <p class="text-xs text-slate-600">
+                敷金：{listing.deposit?.toLocaleString() ?? 0}円 ／ 礼金：
+                {listing.keyMoney?.toLocaleString() ?? 0}円
+              </p>
+              {listing.contractType && (
+                <p class="text-xs text-slate-600">
+                  契約種別：{listing.contractType}
+                </p>
+              )}
+            </>
+          ) : (
+            <>
+              <p class="text-base font-semibold text-slate-900">
+                価格：{listing.price?.toLocaleString()}万円
+              </p>
+              {listing.managementFeeMonthly && (
+                <p class="text-xs text-slate-600">
+                  管理費：{listing.managementFeeMonthly.toLocaleString()}
+                  円／月
+                </p>
+              )}
+              {listing.reserveFundMonthly && (
+                <p class="text-xs text-slate-600">
+                  修繕積立金：
+                  {listing.reserveFundMonthly.toLocaleString()}円／月
+                </p>
+              )}
+            </>
+          )}
+        </div>
+
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-700">
+          <dt class="text-slate-500">所在地</dt>
+          <dd>{listing.addressSummary}</dd>
+
+          <dt class="text-slate-500">最寄り</dt>
+          <dd>
+            {listing.stationLine}・{listing.nearestStation} 徒歩
+            {listing.stationWalkMinutes}分
+          </dd>
+
+          <dt class="text-slate-500">間取り</dt>
+          <dd>{listing.floorPlan}</dd>
+
+          <dt class="text-slate-500">専有面積</dt>
+          <dd>{listing.exclusiveAreaSqm}㎡</dd>
+
+          <dt class="text-slate-500">建物種別</dt>
+          <dd>{listing.buildingType}</dd>
+
+          <dt class="text-slate-500">築年</dt>
+          <dd>{listing.builtYear}年築</dd>
+
+          <dt class="text-slate-500">所在階</dt>
+          <dd>
+            {listing.floor}階／{listing.totalFloors}階建
+          </dd>
+
+          <dt class="text-slate-500">向き</dt>
+          <dd>{listing.direction}</dd>
+        </dl>
+
+        <div class="space-y-1 text-xs text-slate-700">
+          <p class="font-semibold text-slate-900">設備など</p>
+          <p>{listing.equipment.join('、 ')}</p>
+        </div>
+
+        <a
+          href={contactUrl}
+          class="inline-flex w-full items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+        >
+          この物件についてLINEで相談する
+        </a>
+
+        <p class="text-[11px] text-slate-500">
+          募集状況や条件は変更になる場合があります。最新の募集状況はLINEにてご確認ください。
+        </p>
+      </aside>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-base font-semibold text-slate-900">
+        ペットとの暮らしのイメージ
+      </h2>
+      <p class="text-sm leading-relaxed text-slate-700">
+        {listing.environmentSummary}
+      </p>
+
+      <div class="grid gap-4 text-sm md:grid-cols-2">
+        <div class="rounded-lg bg-emerald-50 p-4">
+          <h3 class="mb-1 text-xs font-semibold text-emerald-800">
+            こんな方に向いています
+          </h3>
+          <ul class="list-disc pl-5 text-xs text-emerald-900">
+            {listing.suitableFor.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-lg bg-slate-50 p-4">
+          <h3 class="mb-1 text-xs font-semibold text-slate-800">
+            あまりおすすめできないケース
+          </h3>
+          <ul class="list-disc pl-5 text-xs text-slate-900">
+            {listing.notSuitableFor.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

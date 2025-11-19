@@ -1,0 +1,29 @@
+---
+const navLinks = [
+  { href: '/listings/', label: '物件を探す' },
+  { href: '/first-time/', label: '初めての方へ' },
+  { href: '/cases/', label: '成約事例' },
+  { href: '/about/', label: '運営者' },
+];
+---
+
+<header class="border-b bg-white">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="font-bold text-lg">
+      北摂ペットホーム（仮）
+    </a>
+    <nav class="hidden md:flex gap-6 items-center text-sm">
+      {navLinks.map((item) => (
+        <a href={item.href} class="hover:underline">
+          {item.label}
+        </a>
+      ))}
+      <a
+        href="/contact/#line"
+        class="ml-4 px-3 py-1 rounded bg-green-600 text-white text-sm"
+      >
+        LINEで相談
+      </a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ListingCard from '../components/listings/ListingCard.astro';
+import { getAllListings } from '../data/listings';  // ← TS のほうを読む
+
+const featured = getAllListings().slice(0, 2);      // ← JSON じゃなく関数経由
+---
+
+<BaseLayout title="北摂でペットと暮らせる家探し | 北摂ペットホーム（仮）">
+  <section class="mb-10">
+    <div class="py-10">
+      <h1 class="text-2xl md:text-3xl font-bold mb-3 leading-relaxed">
+        北摂で、ペットと暮らせる家探しを。<br />
+        来店不要、LINEとオンラインでまるごとサポート。
+      </h1>
+      <p class="text-sm text-gray-700 mb-4">
+        豊中・箕面・千里中央・茨木・高槻エリアのペット可物件に特化した仲介サービスです。
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/contact/#line"
+          class="px-4 py-2 rounded bg-green-600 text-white text-sm"
+        >
+          LINEで相談する
+        </a>
+        <a
+          href="/listings/"
+          class="px-4 py-2 rounded border border-gray-300 text-sm"
+        >
+          物件一覧を見る
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold mb-3">
+      取り扱い物件の一部を、わかりやすくご紹介します。
+    </h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      {featured.map((item) => (
+        <ListingCard listing={item} />
+      ))}
+    </div>
+    <div class="mt-4">
+      <a href="/listings/" class="text-sm text-blue-600 underline">
+        物件をもっと見る
+      </a>
+    </div>
+  </section>
+</BaseLayout>

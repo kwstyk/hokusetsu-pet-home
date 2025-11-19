@@ -1,0 +1,90 @@
+---
+// src/pages/about.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="運営者情報｜北摂ペットホーム（仮）">
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
+    <section class="space-y-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+        運営者情報
+      </h1>
+      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+        北摂ペットホーム（仮）は、北摂エリアでペットと暮らすご家族の住まい探しを
+        オンライン中心でお手伝いする、小規模な仲介サービスです。
+        大手チェーンのような店舗網や広告費はありませんが、そのぶん
+        <span class="font-semibold">「一組ずつ、状況をちゃんと聞く」</span>
+        ことに時間を使うスタイルで運営しています。
+      </p>
+    </section>
+
+    <section class="grid gap-8 md:grid-cols-[1.3fr,1fr]">
+      <div class="space-y-4 text-sm text-slate-700">
+        <h2 class="text-lg font-semibold text-slate-900">運営者について</h2>
+        <dl class="space-y-1">
+          <div class="flex gap-4">
+            <dt class="w-28 text-slate-500">屋号</dt>
+            <dd>北摂ペットホーム（仮）</dd>
+          </div>
+          <div class="flex gap-4">
+            <dt class="w-28 text-slate-500">所在地</dt>
+            <dd>大阪府○○市（自宅兼事務所のため、詳細はご契約時にお伝えします）</dd>
+          </div>
+          <div class="flex gap-4">
+            <dt class="w-28 text-slate-500">代表者</dt>
+            <dd>川里 友紀</dd>
+          </div>
+          <div class="flex gap-4">
+            <dt class="w-28 text-slate-500">保有資格</dt>
+            <dd>宅地建物取引士（登録番号：○○○○） ほか</dd>
+          </div>
+          <div class="flex gap-4">
+            <dt class="w-28 text-slate-500">連絡先</dt>
+            <dd>
+              MAIL：<a href="mailto:example@example.com" class="text-emerald-700 underline">
+                example@example.com
+              </a>
+              <span class="block text-xs text-slate-500">
+                ※ 電話番号は、個別のやり取りの中で必要な場合にお伝えします。
+              </span>
+            </dd>
+          </div>
+        </dl>
+
+        <p class="pt-2 text-xs text-slate-500">
+          ※ 上記の内容は個人事業主としての想定です。法人化した場合は、法人名・所在地・免許番号等を追記します。
+        </p>
+      </div>
+
+      <aside class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm text-sm text-slate-700 space-y-2">
+        <h2 class="text-sm font-semibold text-slate-900">大切にしていること</h2>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>ペットの申告を隠さずに、正面から相談できること</li>
+          <li>「言っていたことと違う」とならないよう、条件のグレーな部分も含めて共有すること</li>
+          <li>忙しい方でも、オンラインで無理なくやり取りできること</li>
+        </ul>
+        <p class="text-xs text-slate-500">
+          「とりあえず物件を決める」のではなく、
+          ペットと一緒の暮らしが続けられるかどうかを一緒に考える姿勢を大事にしています。
+        </p>
+      </aside>
+    </section>
+
+    <section class="space-y-3 text-sm text-slate-700">
+      <h2 class="text-lg font-semibold text-slate-900">サービスのスタンス</h2>
+      <p class="leading-relaxed">
+        北摂ペットホーム（仮）は、大量の広告出稿や店舗展開を前提としたサービスではありません。
+        そのぶん、対応できる件数には限りがありますが、1件1件のご相談に対して
+        「何がベストか」を一緒に整理することを重視しています。
+      </p>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>無理に契約を急かすような営業は行いません</li>
+        <li>ペットの条件的に難しい場合も、その旨を正直にお伝えします</li>
+        <li>お断りしたほうが良いと判断した場合は、その理由も含めて率直にお伝えします</li>
+      </ul>
+      <p class="text-xs text-slate-500">
+        「なんとなく不安なまま進んでしまう」状態を減らすことが、このサービスの役割だと考えています。
+      </p>
+    </section>
+  </main>
+</BaseLayout>

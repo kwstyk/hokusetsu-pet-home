@@ -1,16 +1,19 @@
 ---
 // src/pages/privacy.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+
+const pageTitle = `プライバシーポリシー｜${SITE.name}`;
 ---
 
-<BaseLayout title="プライバシーポリシー｜北摂ペットホーム（仮）">
+<BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
     <section class="space-y-3">
       <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
         プライバシーポリシー
       </h1>
       <p class="leading-relaxed">
-        北摂ペットホーム（仮）（以下「当サービス」といいます。）は、
+        {SITE.name}（以下「当サービス」といいます。）は、
         本サービスの提供にあたり取得するお客様の個人情報について、
         以下のとおりプライバシーポリシーを定めます。
       </p>
@@ -106,10 +109,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         本ポリシーに関するお問い合わせは、下記窓口までご連絡ください。
       </p>
       <p class="leading-relaxed">
-        北摂ペットホーム（仮）<br />
+        {SITE.name}<br />
         MAIL：
-        <a href="mailto:example@example.com" class="text-emerald-700 underline">
-          example@example.com
+        <a
+          href={`mailto:${SITE.contactEmail}`}
+          class="text-emerald-700 underline"
+        >
+          {SITE.contactEmail}
         </a>
       </p>
       <p class="text-xs text-slate-500">

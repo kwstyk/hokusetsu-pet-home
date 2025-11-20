@@ -1,9 +1,12 @@
 ---
 // src/pages/security.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+
+const pageTitle = `情報セキュリティ基本方針｜${SITE.name}`;
 ---
 
-<BaseLayout title="情報セキュリティ基本方針｜北摂ペットホーム（仮）">
+<BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
 
     <section class="space-y-3">
@@ -11,7 +14,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         情報セキュリティ基本方針
       </h1>
       <p class="leading-relaxed">
-        北摂ペットホーム（仮）（以下「当サービス」といいます。）は、住まい探しのご相談に際して、
+        {SITE.name}（以下「当サービス」といいます。）は、住まい探しのご相談に際して、
         お客様およびペットに関するさまざまな情報をお預かりします。
         当サービスはこれらの情報を適切に取り扱うことを重要な責任と捉え、以下のとおり情報セキュリティに関する基本方針を定めます。
       </p>
@@ -97,35 +100,4 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <section class="space-y-2">
-      <h2 class="text-base font-semibold text-slate-900">9. インシデント対応</h2>
-      <ul class="list-disc pl-5 space-y-1">
-        <li>個人情報の漏えい・紛失・不正アクセス等の疑いが生じた場合には、事実関係を迅速に確認し、影響範囲の特定と被害の拡大防止に努めます。</li>
-        <li>必要に応じて、お客様および関係機関への連絡・報告等を行います。</li>
-        <li>発生原因を分析し、再発防止策を検討・実施します。</li>
-      </ul>
-    </section>
-
-    <section class="space-y-2">
-      <h2 class="text-base font-semibold text-slate-900">10. 教育・啓発</h2>
-      <p class="leading-relaxed">
-        当サービスの運営に関わる者に対し、個人情報保護および情報セキュリティに関する基本的な事項について継続的な学習・啓発を行い、意識向上に努めます。
-      </p>
-    </section>
-
-    <section class="space-y-2">
-      <h2 class="text-base font-semibold text-slate-900">11. 継続的改善</h2>
-      <p class="leading-relaxed">
-        本基本方針および情報セキュリティの運用状況は、法令・社会情勢・利用するサービスの変化等を踏まえ、必要に応じて見直し・改善を行います。
-      </p>
-    </section>
-
-    <section class="space-y-1 text-sm text-slate-700">
-      <p>制定日：20XX年X月X日</p>
-      <p>北摂ペットホーム（仮）</p>
-      <p>代表者　川里 友紀</p>
-      <p class="text-xs text-slate-500">
-        ※ 実際の事業開始前には、事業内容や利用サービスに合わせて内容を見直すことをおすすめします。
-      </p>
-    </section>
-  </main>
-</BaseLayout>
+      <h2

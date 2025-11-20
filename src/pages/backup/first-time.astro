@@ -2,14 +2,12 @@
 // src/pages/first-time.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
-
-const pageTitle = `初めての方へ｜${SITE.name}`;
 ---
 
-<BaseLayout title={pageTitle}>
+<BaseLayout title="初めての方へ｜北摂ペットホーム（仮）">
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
 
-    <!-- ヒーロー -->
+    {/* ヒーロー */}
     <section class="space-y-4">
       <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
         北摂で、ペットとの暮らしを優先した<br class="hidden md:block" />
@@ -18,8 +16,8 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
       <p class="text-sm md:text-base text-slate-700 leading-relaxed">
         「ペット可」と書いてあるのに、いざ詳しく聞くと条件が厳しすぎる・
         情報がバラバラでよく分からない…。<br class="hidden md:block" />
-        そんなモヤモヤを減らすために、
-        <span class="font-semibold">北摂エリアのペット可物件に特化</span>した仲介サービスとして、
+        そんなモヤモヤを減らすために、北摂エリアの
+        <span class="font-semibold">ペット可物件に特化</span>した仲介サービスとして、
         LINEとオンラインを中心にじっくり伴走します。
       </p>
       <div class="flex flex-wrap gap-3 pt-1">
@@ -36,16 +34,12 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
           物件一覧を見てみる
         </a>
       </div>
-      <p class="text-xs text-slate-500 leading-relaxed">
-        現在は試験運用中のため、実際のご相談受付状況や対応エリアの詳細はタイミングによって変わる場合があります。
-        最新の状況はLINEでお問い合わせください。
-      </p>
     </section>
 
-    <!-- サービスの特徴 -->
+    {/* サービスの特徴 */}
     <section class="space-y-4">
       <h2 class="text-xl font-semibold text-slate-900">
-        {SITE.shortName} の3つの特徴
+        北摂ペットホーム（仮）の3つの特徴
       </h2>
       <div class="grid gap-4 md:grid-cols-3 text-sm text-slate-700">
         <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col gap-2">
@@ -53,8 +47,9 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
             北摂エリア×ペット可に特化
           </h3>
           <p class="leading-relaxed">
-            {SITE.areaText}
-            通勤や通学と、ペットの通院・お散歩のしやすさのバランスを一緒に考えます。
+            豊中・箕面・千里中央・茨木・高槻など、
+            北摂エリアに絞って物件をリサーチします。
+            「通勤とペットの通院、どちらも無理のないエリア」を一緒に考えます。
           </p>
         </div>
         <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col gap-2">
@@ -63,8 +58,8 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
           </h3>
           <p class="leading-relaxed">
             条件のすり合わせ・物件紹介・内見の日程調整・
-            契約のご説明まで、基本的にオンラインで進めます。
-            お仕事や家事・通院の合間でも、空き時間でやり取りできます。
+            契約のご説明まで、基本的にオンラインで完結します。
+            仕事や通院で忙しい方でも、空き時間でやり取りできます。
           </p>
         </div>
         <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col gap-2">
@@ -74,13 +69,13 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
           <p class="leading-relaxed">
             ペットの頭数・大きさ・鳴き声・におい・共用部のルールなど、
             ペット可物件ならではのポイントをできる限り事前に確認し、
-            良い面もリスクも両方お伝えします。
+            いい面もリスクも両方お伝えします。
           </p>
         </div>
       </div>
     </section>
 
-    <!-- どんな人に向いているか -->
+    {/* どんな人に向いているか */}
     <section class="space-y-4">
       <h2 class="text-xl font-semibold text-slate-900">
         向いている方・あまり向いていない方
@@ -111,7 +106,7 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
       </div>
     </section>
 
-    <!-- 利用の流れ -->
+    {/* 利用の流れ */}
     <section class="space-y-4">
       <h2 class="text-xl font-semibold text-slate-900">
         ご利用の流れ（オンライン中心）
@@ -126,7 +121,7 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
             <p class="leading-relaxed">
               ページ下部の「LINEで相談」から友だち追加していただき、
               希望エリア・家賃・入居時期・ペットの種類と頭数などをお伺いします。
-              まだ引っ越すかどうか迷っている段階でも大丈夫です。
+              ざっくりでも大丈夫です。
             </p>
           </div>
         </li>
@@ -146,7 +141,7 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
           </div>
         </li>
         <li class="flex gap-3">
-          <div class="mt-1 flex h-6 w-6 items-center justifycenter rounded-full bg-emerald-600 text-xs font-semibold text-white">
+          <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white">
             3
           </div>
           <div class="space-y-1">
@@ -171,18 +166,14 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
             <p class="leading-relaxed">
               お申し込みの手続きや入居審査、重要事項のご説明、契約書への署名などを進めます。
               可能な範囲でオンライン（IT重説・電子契約）も活用しつつ、
-              物件や管理会社の運用によっては対面でのご説明となる場合もあります。
+              必要に応じて対面でのご説明も行います。
             </p>
           </div>
         </li>
       </ol>
-      <p class="text-xs text-slate-500 leading-relaxed">
-        ※ 現時点では、実際の仲介業務は準備段階を含みます。
-        詳細な対応内容は、個別にご相談のうえ決めていきます。
-      </p>
     </section>
 
-    <!-- よくあるご質問 -->
+    {/* よくあるご質問（ライト版） */}
     <section class="space-y-4">
       <h2 class="text-xl font-semibold text-slate-900">
         よくあるご質問（かんたん版）
@@ -193,7 +184,7 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
             Q. まだ引っ越すかどうか決めていない段階でも相談していいですか？
           </p>
           <p class="mt-1 leading-relaxed">
-            A. 大丈夫です。「この条件だとどんな物件がありそうか」を一緒に確認するだけでもOKです。
+            A. 大丈夫です。まずは「この条件だとどんな物件がありそうか」を一緒に確認するだけでもOKです。
             具体的な時期が決まっていなくても、おおよそのイメージを共有してもらえれば十分です。
           </p>
         </div>
@@ -219,29 +210,27 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
         </div>
       </div>
     </section>
-
-    <!-- 費用について -->
     <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-slate-900">
-        費用について（仲介手数料など）
-      </h2>
-      <p class="text-sm text-slate-700 leading-relaxed">
-        {SITE.shortName}では、一般的な不動産仲介と同様に、
-        物件のご紹介・ご案内・お手続きのサポートに対して仲介手数料を頂きます。
-        具体的な金額は、物件種別や契約条件により異なります。
-      </p>
-      <ul class="text-sm text-slate-700 leading-relaxed list-disc pl-5 space-y-1">
-        <li>賃貸物件：原則として「家賃〇ヶ月分（税込）」を上限とした範囲内での仲介手数料</li>
-        <li>購入物件：売買価格に応じた仲介手数料（宅地建物取引業法の上限の範囲内）</li>
-      </ul>
-      <p class="text-xs text-slate-500 leading-relaxed">
-        ※ 実際の手数料額やキャンペーン等がある場合は、
-        物件のご紹介時またはお申し込み前のタイミングで個別にご説明します。<br />
-        ※ 法令上の上限を超える手数料を頂くことはありません。
-      </p>
-    </section>
+  <h2 class="text-xl font-semibold text-slate-900">
+    費用について（仲介手数料など）
+  </h2>
+  <p class="text-sm text-slate-700 leading-relaxed">
+    北摂ペットホーム（仮）では、一般的な不動産仲介と同様に、
+    物件のご紹介・ご案内・お手続きのサポートに対して仲介手数料を頂きます。
+    具体的な金額は、物件種別や契約条件により異なります。
+  </p>
+  <ul class="text-sm text-slate-700 leading-relaxed list-disc pl-5 space-y-1">
+    <li>賃貸物件：原則として「家賃〇ヶ月分（税込）」を上限とした範囲内での仲介手数料</li>
+    <li>購入物件：売買価格に応じた仲介手数料（宅地建物取引業法の上限の範囲内）</li>
+  </ul>
+  <p class="text-xs text-slate-500 leading-relaxed">
+    ※ 実際の手数料額やキャンペーン等がある場合は、
+    物件のご紹介時またはお申し込み前のタイミングで個別にご説明いたします。<br />
+    ※ 法令上の上限を超える手数料を頂くことはありません。
+  </p>
+</section>
 
-    <!-- 最後のCTA -->
+    {/* 最後のCTA */}
     <section class="rounded-2xl bg-emerald-50 px-4 py-6 sm:px-6 sm:py-8 space-y-3">
       <h2 class="text-lg font-semibold text-emerald-900">
         まずは、ペットとご家族の状況を教えてください。

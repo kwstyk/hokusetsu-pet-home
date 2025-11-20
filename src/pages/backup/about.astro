@@ -1,39 +1,30 @@
 ---
 // src/pages/about.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../config/site';
-
-const pageTitle = `運営者情報｜${SITE.name}`;
 ---
 
-<BaseLayout title={pageTitle}>
+<BaseLayout title="運営者情報｜北摂ペットホーム（仮）">
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
-    {/* 冒頭：サービス概要 */}
     <section class="space-y-4">
       <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
         運営者情報
       </h1>
       <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        {SITE.name} は、北摂エリアでペットと暮らすご家族の住まい探しを
+        北摂ペットホーム（仮）は、北摂エリアでペットと暮らすご家族の住まい探しを
         オンライン中心でお手伝いする、小規模な仲介サービスです。
         大手チェーンのような店舗網や広告費はありませんが、そのぶん
         <span class="font-semibold">「一組ずつ、状況をちゃんと聞く」</span>
-        ことに時間を使うスタイルで運営していくことを目指しています。
-      </p>
-      <p class="text-xs text-slate-500 leading-relaxed">
-        現在は起業・開業に向けた準備段階として、サービス設計やサイト構築を進めているフェーズです。
-        実際の仲介業務の開始時期・対応内容は、今後変更される可能性があります。
+        ことに時間を使うスタイルで運営しています。
       </p>
     </section>
 
-    {/* 運営者プロフィール＋大切にしていること */}
     <section class="grid gap-8 md:grid-cols-[1.3fr,1fr]">
       <div class="space-y-4 text-sm text-slate-700">
         <h2 class="text-lg font-semibold text-slate-900">運営者について</h2>
         <dl class="space-y-1">
           <div class="flex gap-4">
             <dt class="w-28 text-slate-500">屋号</dt>
-            <dd>{SITE.name}</dd>
+            <dd>北摂ペットホーム（仮）</dd>
           </div>
           <div class="flex gap-4">
             <dt class="w-28 text-slate-500">所在地</dt>
@@ -50,12 +41,8 @@ const pageTitle = `運営者情報｜${SITE.name}`;
           <div class="flex gap-4">
             <dt class="w-28 text-slate-500">連絡先</dt>
             <dd>
-              MAIL：
-              <a
-                href={`mailto:${SITE.contactEmail}`}
-                class="text-emerald-700 underline"
-              >
-                {SITE.contactEmail}
+              MAIL：<a href="mailto:example@example.com" class="text-emerald-700 underline">
+                example@example.com
               </a>
               <span class="block text-xs text-slate-500">
                 ※ 電話番号は、個別のやり取りの中で必要な場合にお伝えします。
@@ -64,9 +51,8 @@ const pageTitle = `運営者情報｜${SITE.name}`;
           </div>
         </dl>
 
-        <p class="pt-2 text-xs text-slate-500 leading-relaxed">
-          ※ 上記の内容は個人事業主としての想定です。法人化した場合は、法人名・所在地・免許番号等を追記します。<br />
-          ※ 宅地建物取引業の免許取得前は、実際の仲介行為は行わず、情報整理や相談ベースでのサポートにとどめます。
+        <p class="pt-2 text-xs text-slate-500">
+          ※ 上記の内容は個人事業主としての想定です。法人化した場合は、法人名・所在地・免許番号等を追記します。
         </p>
       </div>
 
@@ -84,11 +70,10 @@ const pageTitle = `運営者情報｜${SITE.name}`;
       </aside>
     </section>
 
-    {/* サービスのスタンス */}
     <section class="space-y-3 text-sm text-slate-700">
       <h2 class="text-lg font-semibold text-slate-900">サービスのスタンス</h2>
       <p class="leading-relaxed">
-        {SITE.shortName}は、大量の広告出稿や店舗展開を前提としたサービスではありません。
+        北摂ペットホーム（仮）は、大量の広告出稿や店舗展開を前提としたサービスではありません。
         そのぶん、対応できる件数には限りがありますが、1件1件のご相談に対して
         「何がベストか」を一緒に整理することを重視しています。
       </p>
@@ -101,33 +86,31 @@ const pageTitle = `運営者情報｜${SITE.name}`;
         「なんとなく不安なまま進んでしまう」状態を減らすことが、このサービスの役割だと考えています。
       </p>
     </section>
-
-    {/* 対応エリア・対応メニュー */}
     <section class="space-y-3 text-sm text-slate-700">
-      <h2 class="text-lg font-semibold text-slate-900">
-        対応エリアと、ご相談いただける内容
-      </h2>
+  <h2 class="text-lg font-semibold text-slate-900">
+    対応エリアと、ご相談いただける内容
+  </h2>
+  <div class="space-y-2">
+    <h3 class="text-sm font-semibold text-slate-900">対応エリア</h3>
+    <p class="leading-relaxed">
+      豊中市・箕面市・吹田市・茨木市・高槻市など、
+      いわゆる「北摂エリア」と呼ばれる地域を中心に対応しています。
+      とくに、阪急宝塚線・箕面線、北大阪急行、JR京都線（北摂区間）の沿線エリアを得意としています。
+    </p>
+  </div>
+  <div class="space-y-2">
+    <h3 class="text-sm font-semibold text-slate-900">対応メニュー</h3>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>住居用賃貸物件の仲介（個人・ご家族向け／ペット可物件に特化）</li>
+      <li>自宅用の購入物件の仲介（マンション・戸建て）</li>
+      <li>SUUMO 等で見つけた物件についての「ペット可の現実度」相談</li>
+    </ul>
+    <p class="text-xs text-slate-500 leading-relaxed">
+      事業用物件・店舗・投資用物件・物件の売却仲介については、現在は原則取り扱っていません。
+      どうしても北摂エリアでのご相談を希望される場合は、個別にご事情をお伺いした上で対応可否を判断いたします。
+    </p>
+  </div>
+</section>
 
-      <div class="space-y-2">
-        <h3 class="text-sm font-semibold text-slate-900">対応エリア</h3>
-        <p class="leading-relaxed">
-          {SITE.areaText}
-          とくに、阪急宝塚線・箕面線、北大阪急行、JR京都線（北摂区間）の沿線エリアを得意としています。
-        </p>
-      </div>
-
-      <div class="space-y-2">
-        <h3 class="text-sm font-semibold text-slate-900">対応メニュー</h3>
-        <ul class="list-disc pl-5 space-y-1">
-          <li>住居用賃貸物件の仲介（個人・ご家族向け／ペット可物件に特化）</li>
-          <li>自宅用の購入物件の仲介（マンション・戸建て）</li>
-          <li>SUUMO 等で見つけた物件についての「ペット可の現実度」相談</li>
-        </ul>
-        <p class="text-xs text-slate-500 leading-relaxed">
-          事業用物件・店舗・投資用物件・物件の売却仲介については、現在は原則取り扱っていません。
-          どうしても北摂エリアでのご相談を希望される場合は、個別にご事情をお伺いした上で対応可否を判断いたします。
-        </p>
-      </div>
-    </section>
   </main>
 </BaseLayout>

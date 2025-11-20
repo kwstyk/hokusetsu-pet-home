@@ -1,100 +1,108 @@
 ---
 // src/pages/cases/index.astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config/site';
+import { getAllCases, type Case } from '../../data/cases';
+
+const pageTitle = `成約事例・サポート事例｜${SITE.name}`;
+const cases = getAllCases();
 ---
 
-<BaseLayout title="成約事例｜北摂ペットホーム（仮）">
+<BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
-    <section class="space-y-3">
+    {/* ヒーロー */}
+    <section class="space-y-4">
       <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        成約事例
+        成約事例・サポート事例
       </h1>
       <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        実際にご相談いただいたお客様のうち、掲載許可をいただいた事例を、
-        ペットの種類やご家族構成とあわせてご紹介していきます。
-        現時点ではサンプルのケースを掲載しています。
+        具体的な住所や物件名は控えつつ、
+        「どんなご家族が、どんな悩みを持っていて、最終的にどういう住まいにたどり着いたのか」
+        をイメージしやすい形で整理していく予定のページです。
+      </p>
+      <p class="text-xs text-slate-500">
+        現在は準備中のため、一部サンプル事例のみ掲載しています。
+        実際の運用開始後、随時更新していきます。
       </p>
     </section>
 
-    <section class="space-y-4 text-sm text-slate-700">
-      {/* ケース1 */}
-      <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2">
-        <h2 class="text-base font-semibold text-slate-900">
-          ケース1：共働き夫婦＋小型犬1匹／賃貸2LDK（豊中市・千里中央エリア）
-        </h2>
-        <dl class="grid gap-x-4 gap-y-1 text-xs md:text-sm md:grid-cols-2">
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">家族構成</dt>
-            <dd>30代夫婦＋小型犬1匹</dd>
-          </div>
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">ご希望</dt>
-            <dd>通勤30分以内／駅徒歩10分以内／2LDK以上</dd>
-          </div>
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">ペット条件</dt>
-            <dd>小型犬1匹・日中はお留守番あり</dd>
-          </div>
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">決定した物件</dt>
-            <dd>賃貸マンション 2LDK／築20年弱／駅徒歩10分</dd>
-          </div>
-        </dl>
-        <p class="text-xs md:text-sm leading-relaxed">
-          SUUMO等で見つけた物件は「ペット相談」とだけ書かれており、
-          条件の詳細が分からない状態でした。
-          管理会社に確認したところ「小型犬1匹まで・敷金1ヶ月積み増し」であれば相談可という条件が判明し、
-          ご夫婦ともに通勤経路が良かったため、お申し込み・ご成約となりました。
-        </p>
-      </article>
-
-      {/* ケース2 */}
-      <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2">
-        <h2 class="text-base font-semibold text-slate-900">
-          ケース2：一人暮らし＋猫2匹／静かな1LDK（箕面市）
-        </h2>
-        <dl class="grid gap-x-4 gap-y-1 text-xs md:text-sm md:grid-cols-2">
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">家族構成</dt>
-            <dd>30代単身＋猫2匹</dd>
-          </div>
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">ご希望</dt>
-            <dd>在宅勤務メイン／静かな環境／1LDK</dd>
-          </div>
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">ペット条件</dt>
-            <dd>猫2匹・完全室内飼い</dd>
-          </div>
-          <div class="flex gap-2">
-            <dt class="w-24 text-slate-500">決定した物件</dt>
-            <dd>賃貸マンション 1LDK／築10年／最上階角部屋</dd>
-          </div>
-        </dl>
-        <p class="text-xs md:text-sm leading-relaxed">
-          猫2匹可の物件はもともと数が少なく、候補も限られていましたが、
-          「在宅勤務が多いので、防音性と日当たりを優先したい」というご希望から、
-          最上階・角部屋・遮音性の高い構造の物件をご提案。
-          近隣の生活音や共用部の動線も内見時に一緒に確認したうえで、ご成約となりました。
-        </p>
-      </article>
-    </section>
-
-    <section class="rounded-2xl bg-emerald-50 px-4 py-6 sm:px-6 sm:py-8 space-y-3 text-sm text-emerald-900">
-      <h2 class="text-base font-semibold">
-        実際の事例は、今後こちらのページで少しずつ追加していきます。
+    {/* 事例リスト */}
+    <section class="space-y-4">
+      <h2 class="text-lg font-semibold text-slate-900">
+        事例一覧
       </h2>
-      <p class="leading-relaxed">
-        まだサービス準備中のため、現在掲載しているのはイメージに近いサンプルケースです。
-        実際にご相談いただいたケースについては、個人が特定されない形で
-        「どんな条件で、どのように物件を決めたか」をまとめていく予定です。
-      </p>
-      <a
-        href="/contact/"
-        class="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800"
-      >
-        自分たちの場合の選択肢を相談してみる
-      </a>
+
+      {cases.length === 0 ? (
+        <p class="text-sm text-slate-600">
+          まだ公開できる事例はありません。今後、順次追加していく予定です。
+        </p>
+      ) : (
+        <div class="space-y-4">
+          {
+            cases.map((item) => (
+              <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2">
+                {/* タイトル */}
+                <h3 class="text-base font-semibold text-slate-900">
+                  <a href={`/cases/${item.slug}`} class="hover:underline">
+                    {item.title}
+                  </a>
+                </h3>
+
+                {/* タグ・メタ情報 */}
+                <div class="flex flex-wrap gap-2 text-[11px]">
+                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
+                    {item.city}
+                  </span>
+                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
+                    {item.dealType === 'rent' ? '賃貸' : '購入'}
+                  </span>
+                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
+                    {item.petSummary}
+                  </span>
+                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
+                    {item.familyType}
+                  </span>
+                </div>
+
+                {/* 概要 */}
+                <p class="text-sm text-slate-700 leading-relaxed">
+                  {item.summary}
+                </p>
+
+                {/* 主な悩み・結果サマリ */}
+                <div class="grid gap-3 md:grid-cols-2 text-xs text-slate-700">
+                  <div class="rounded-lg bg-slate-50 p-3">
+                    <p class="font-semibold text-slate-900 text-[12px] mb-1">
+                      ご相談時に悩んでいたこと
+                    </p>
+                    <p class="leading-relaxed">
+                      {item.mainConcern}
+                    </p>
+                  </div>
+                  <div class="rounded-lg bg-emerald-50 p-3">
+                    <p class="font-semibold text-emerald-900 text-[12px] mb-1">
+                      最終的にどうなったか
+                    </p>
+                    <p class="leading-relaxed">
+                      {item.resultSummary}
+                    </p>
+                  </div>
+                </div>
+
+                {/* リンク */}
+                <div class="pt-1">
+                  <a
+                    href={`/cases/${item.slug}`}
+                    class="inline-flex items-center text-[12px] font-semibold text-emerald-700 hover:underline"
+                  >
+                    詳しく読む（準備中のダミーページ）
+                  </a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      )}
     </section>
   </main>
 </BaseLayout>

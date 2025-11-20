@@ -1,12 +1,9 @@
 ---
 // src/pages/contact.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../config/site';
-
-const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
 ---
 
-<BaseLayout title={pageTitle}>
+<BaseLayout title="お問い合わせ・ご相談｜北摂ペットホーム（仮）">
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
 
     {/* ヒーロー：LINE集約 */}
@@ -15,18 +12,17 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
         お問い合わせ・ご相談は、<br class="hidden md:block" />
         基本的に<span class="text-emerald-700">LINEでお受けしています。</span>
       </h1>
-
       <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        {SITE.shortName}では、やり取りの履歴を残しつつ、
+        北摂ペットホーム（仮）では、やり取りの履歴を残しつつ、
         すきま時間でご相談いただけるよう、
         <span class="font-semibold">LINEでのご相談を基本窓口</span>としています。
-        電話や来店のみの対応は、現在は行っていません。
+        電話や来店のみの対応は行っていません。
       </p>
 
-      {/* LINE 友だち追加ボタン */}
+      {/* LINE 友だち追加ボタン（リンクは仮） */}
       <div class="flex flex-wrap gap-3 pt-2">
         <a
-          href={SITE.lineUrl}
+          href="https://line.me/R/ti/p/@your-line-idKOKOWOSASHIKAERU" 
           class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700"
         >
           LINEで相談する（友だち追加）
@@ -60,12 +56,11 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
             </p>
             <p class="leading-relaxed">
               上のボタンから友だち追加していただき、
-              「{SITE.shortName}のサイトを見ました」など一言メッセージをお送りください。
+              「北摂ペットホームのサイトを見ました」など一言メッセージをお送りください。
               こちらから簡単なヒアリングのテンプレートをお送りします。
             </p>
           </div>
         </li>
-
         <li class="flex gap-3">
           <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white">
             2
@@ -81,7 +76,6 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
             </p>
           </div>
         </li>
-
         <li class="flex gap-3">
           <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white">
             3
@@ -152,17 +146,15 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
       <div class="rounded-xl bg-white p-4 border border-slate-200 text-sm text-slate-700 space-y-2">
         <p>
           即レス専用のチャット窓口ではないため、
-          基本的には<span class="font-semibold">{SITE.businessHours}</span>を目安に、
-          順次ご返信しています。
+          基本的には<span class="font-semibold">平日の日中を中心に順次ご返信</span>しています。
         </p>
         <ul class="list-disc pl-5 space-y-1">
-          <li>深夜帯・早朝のメッセージは、原則として翌営業時間内のご返信となります。</li>
-          <li>繁忙期（2〜4月）などは、通常よりご返信にお時間をいただく場合があります。</li>
-          <li>設備トラブル等の緊急対応は、管理会社・オーナーの窓口をご案内する場合があります。</li>
+          <li>平日：おおむね 10:00〜18:00 の間で順次ご返信</li>
+          <li>土日祝：内見対応などで、ご返信が遅くなる場合があります</li>
+          <li>緊急のトラブル対応窓口ではありません（設備トラブル等は管理会社・オーナー窓口へ）</li>
         </ul>
         <p class="text-xs text-slate-500">
-          ※ 緊急のトラブル対応窓口としては機能していません。火災・漏水などの事故は、管理会社・保険会社・
-          関係機関へのご連絡を優先してください。
+          ※ 繁忙期（2〜4月）などは、通常よりご返信にお時間をいただく場合があります。
         </p>
       </div>
     </section>
@@ -181,12 +173,10 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
         </p>
         <p class="text-sm font-semibold text-slate-900">
           MAIL：
-          <a
-            href={`mailto:${SITE.contactEmail}`}
-            class="text-emerald-700 underline"
-          >
-            {SITE.contactEmail}
+          <a href="mailto:example@example.com" class="text-emerald-700 underline">
+            example@example.com
           </a>
+          {/* ★ 実際に運用するメールアドレスに差し替え */}
         </p>
       </div>
     </section>
@@ -202,7 +192,7 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
         無理のない条件を一緒に整理していきましょう。
       </p>
       <a
-        href={SITE.lineUrl}
+        href="https://line.me/R/ti/p/@your-line-idKOKOWOSASHIKAERU"  
         class="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800"
       >
         LINEで住まい探しの相談をする

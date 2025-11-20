@@ -2,107 +2,60 @@
 // src/pages/cases/index.astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../config/site';
-import { getAllCases, type Case } from '../../data/cases';
+import { getAllCases, type CaseEntry } from '../../data/cases';
 
-const pageTitle = `成約事例・サポート事例｜${SITE.name}`;
-const cases = getAllCases();
+const pageTitle = `成約事例｜${SITE.name}`;
+const cases: CaseEntry[] = getAllCases();
 ---
 
 <BaseLayout title={pageTitle}>
-  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
-    {/* ヒーロー */}
-    <section class="space-y-4">
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
+    <header class="space-y-3">
+      <p class="text-[11px] text-emerald-700 font-semibold tracking-wide">
+        CASE STUDIES
+      </p>
       <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        成約事例・サポート事例
+        成約事例
       </h1>
       <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        具体的な住所や物件名は控えつつ、
-        「どんなご家族が、どんな悩みを持っていて、最終的にどういう住まいにたどり着いたのか」
-        をイメージしやすい形で整理していく予定のページです。
+        実際にご相談いただいたケースをもとに、「どんなお悩みがあって、どのような物件をご提案し、最終的にどう決まったか」を
+        できる範囲で記録していく予定のページです。
       </p>
-      <p class="text-xs text-slate-500">
-        現在は準備中のため、一部サンプル事例のみ掲載しています。
-        実際の運用開始後、随時更新していきます。
+      <p class="text-[11px] text-slate-500">
+        現時点ではダミー事例のみ掲載しています。実際の運用フェーズでは、個人が特定されない範囲で要約した事例のみを掲載する方針です。
       </p>
-    </section>
+    </header>
 
-    {/* 事例リスト */}
-    <section class="space-y-4">
-      <h2 class="text-lg font-semibold text-slate-900">
-        事例一覧
-      </h2>
-
-      {cases.length === 0 ? (
-        <p class="text-sm text-slate-600">
-          まだ公開できる事例はありません。今後、順次追加していく予定です。
-        </p>
-      ) : (
-        <div class="space-y-4">
-          {
-            cases.map((item) => (
-              <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2">
-                {/* タイトル */}
-                <h3 class="text-base font-semibold text-slate-900">
-                  <a href={`/cases/${item.slug}`} class="hover:underline">
-                    {item.title}
-                  </a>
-                </h3>
-
-                {/* タグ・メタ情報 */}
-                <div class="flex flex-wrap gap-2 text-[11px]">
-                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
-                    {item.city}
-                  </span>
-                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
-                    {item.dealType === 'rent' ? '賃貸' : '購入'}
-                  </span>
-                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
-                    {item.petSummary}
-                  </span>
-                  <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
-                    {item.familyType}
-                  </span>
-                </div>
-
-                {/* 概要 */}
-                <p class="text-sm text-slate-700 leading-relaxed">
-                  {item.summary}
+    {cases.length === 0 ? (
+      <p class="text-sm text-slate-600">
+        まだ公開中の成約事例はありません。準備が整い次第、こちらに掲載していきます。
+      </p>
+    ) : (
+      <section class="space-y-4">
+        <ul class="space-y-4">
+          {cases.map((entry) => (
+            <li class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm/5 hover:shadow-md/60 transition-shadow">
+              <a href={`/cases/${entry.slug}/`} class="block space-y-2">
+                <p class="text-[11px] font-semibold text-emerald-700">
+                  {entry.dealType === 'rent' ? '賃貸' : '購入'} ／ {entry.areaLabel} ／ {entry.pets}
                 </p>
-
-                {/* 主な悩み・結果サマリ */}
-                <div class="grid gap-3 md:grid-cols-2 text-xs text-slate-700">
-                  <div class="rounded-lg bg-slate-50 p-3">
-                    <p class="font-semibold text-slate-900 text-[12px] mb-1">
-                      ご相談時に悩んでいたこと
-                    </p>
-                    <p class="leading-relaxed">
-                      {item.mainConcern}
-                    </p>
-                  </div>
-                  <div class="rounded-lg bg-emerald-50 p-3">
-                    <p class="font-semibold text-emerald-900 text-[12px] mb-1">
-                      最終的にどうなったか
-                    </p>
-                    <p class="leading-relaxed">
-                      {item.resultSummary}
-                    </p>
-                  </div>
-                </div>
-
-                {/* リンク */}
-                <div class="pt-1">
-                  <a
-                    href={`/cases/${item.slug}`}
-                    class="inline-flex items-center text-[12px] font-semibold text-emerald-700 hover:underline"
-                  >
-                    詳しく読む（準備中のダミーページ）
-                  </a>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      )}
-    </section>
+                <h2 class="text-base md:text-lg font-semibold text-slate-900">
+                  {entry.title}
+                </h2>
+                <p class="text-[11px] text-slate-500">
+                  公開日：{entry.publishedAt} ／ エリア：{entry.city}
+                </p>
+                <p class="text-sm text-slate-700 line-clamp-2">
+                  {entry.lead}
+                </p>
+                <p class="mt-1 text-[11px] text-emerald-700">
+                  くわしく見る →
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
   </main>
 </BaseLayout>

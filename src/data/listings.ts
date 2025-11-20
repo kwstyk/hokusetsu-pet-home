@@ -22,6 +22,7 @@ export interface Listing {
   nearestStation: string;
   stationLine: string;
   stationWalkMinutes: number;
+  address?: string; // ★追加：所在地（任意）
 
   // ペット条件
   petAllowed: boolean;
@@ -89,7 +90,9 @@ const listings: Listing[] = [
     addressSummary: '豊中市○○町',
     nearestStation: '千里中央駅',
     stationLine: '北大阪急行',
+    
     stationWalkMinutes: 10,
+    address: '大阪府豊中市三国２丁目２番',
 
     petAllowed: true,
     petDetail: {
@@ -158,6 +161,7 @@ const listings: Listing[] = [
     addressSummary: '箕面市○○',
     nearestStation: '箕面萱野駅',
     stationLine: '北大阪急行',
+    address: '大阪府高槻市古曽部町２丁目6-1',
     stationWalkMinutes: 13,
 
     petAllowed: true,

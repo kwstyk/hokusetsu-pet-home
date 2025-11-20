@@ -216,5 +216,42 @@ const contactUrl = `/contact/?ref=${encodeURIComponent(listing.id)}`;
         </div>
       </div>
     </section>
+        <!-- ここより上は既存の詳細情報 -->
+    {listing.address && (
+      <section class="mt-8 space-y-3">
+        <h2 class="text-sm font-semibold text-slate-900">
+          所在地・周辺地図
+        </h2>
+
+        <p class="text-sm text-slate-700">
+          住所：{listing.address}
+        </p>
+
+        <div class="mt-2 aspect-video w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+        <iframe
+          src={`https://www.google.com/maps?q=${encodeURIComponent(
+            listing.address
+          )}&t=m&z=17&iwloc=near&output=embed`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="h-full w-full border-0"
+        ></iframe>
+
+        </div>
+
+        <p class="text-[11px] text-slate-500">
+          ※ 表示位置・縮尺は自動計算です。実際の位置と多少ずれる場合があります。
+        </p>
+
+        <p class="text-[11px] text-slate-500">
+          周辺のペット同伴可スポットや動物病院などをまとめて確認したい場合は、準備中の
+          <a href="/map/" class="font-semibold text-emerald-700 hover:underline">
+            北摂ペット生活マップ
+          </a>
+          もあわせてご覧ください。
+        </p>
+      </section>
+    )}
+
   </main>
 </BaseLayout>

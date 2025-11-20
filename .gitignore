@@ -23,3 +23,5 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 src.zip
+src/pages/backup/
+src/data/backup/

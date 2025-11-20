@@ -1,0 +1,93 @@
+---
+// src/pages/guides/[slug].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config/site';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type GuideEntry = CollectionEntry<'guides'>;
+
+export async function getStaticPaths() {
+  const guides: GuideEntry[] = await getCollection(
+    'guides',
+    (entry: GuideEntry) => !entry.data.isDraft,
+  );
+
+  return guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { guide },
+  }));
+}
+
+interface Props {
+  guide: GuideEntry;
+}
+
+const { guide } = Astro.props as Props;
+
+// Markdown をコンポーネント化
+const { Content } = await guide.render();
+
+const pageTitle = `${guide.data.title}｜沿線・エリアガイド｜${SITE.name}`;
+const dateFormatter = new Intl.DateTimeFormat('ja-JP', { dateStyle: 'medium' });
+---
+
+<BaseLayout title={pageTitle}>
+  <main class="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
+    <header class="space-y-3">
+      <p class="text-[11px] text-slate-500">沿線・エリアガイド</p>
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+        {guide.data.title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-500">
+        <span>
+          公開日：{dateFormatter.format(guide.data.publishedAt)}
+        </span>
+        {guide.data.updatedAt && (
+          <span>
+            最終更新：{dateFormatter.format(guide.data.updatedAt)}
+          </span>
+        )}
+      </div>
+
+      {(guide.data.line || guide.data.areaName) && (
+        <p class="text-[11px] text-slate-500">
+          {guide.data.line && <span>{guide.data.line}</span>}
+          {guide.data.line && guide.data.areaName && '｜'}
+          {guide.data.areaName && (
+            <span>{guide.data.areaName}</span>
+          )}
+        </p>
+      )}
+
+      {guide.data.tags && guide.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 pt-1 text-[11px]">
+          {guide.data.tags.map((tag: string) => (
+            <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {guide.data.description && (
+        <p class="text-sm text-slate-700 leading-relaxed">
+          {guide.data.description}
+        </p>
+      )}
+    </header>
+
+    <article class="space-y-4 leading-relaxed">
+      <Content />
+    </article>
+
+    <section class="pt-4">
+      <a
+        href="/guides/"
+        class="inline-flex items-center text-xs font-semibold text-emerald-700 hover:underline"
+      >
+        ← 沿線・エリアガイド一覧に戻る
+      </a>
+    </section>
+  </main>
+</BaseLayout>

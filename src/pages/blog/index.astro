@@ -1,0 +1,92 @@
+---
+// src/pages/blog/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config/site';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type BlogEntry = CollectionEntry<'blog'>;
+
+const pageTitle = `ブログ・読みもの｜${SITE.name}`;
+
+// 下書き（isDraft: true）は一覧に出さない
+const posts: BlogEntry[] = await getCollection(
+  'blog',
+  (entry) => !entry.data.isDraft,
+);
+
+// 日付フォーマッタ（日本語表記）
+const dateFormatter = new Intl.DateTimeFormat('ja-JP', { dateStyle: 'medium' });
+---
+
+<BaseLayout title={pageTitle}>
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
+    {/* ヘッダー */}
+    <section class="space-y-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+        ブログ・読みもの
+      </h1>
+      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+        北摂でペットと暮らす住まい探しにまつわる考え方や、内見時のチェックポイントなどを
+        少しずつ整理していく予定のコーナーです。
+      </p>
+      <p class="text-xs text-slate-500">
+        現時点ではサンプル記事のみ掲載しています。実際の運用開始後、順次コンテンツを追加していく想定です。
+      </p>
+    </section>
+
+    {/* 記事一覧 */}
+    <section class="space-y-4">
+      {posts.length === 0 ? (
+        <p class="text-sm text-slate-600">
+          まだ公開中の記事はありません。準備が整い次第、こちらに記事を追加していきます。
+        </p>
+      ) : (
+        <ul class="space-y-4">
+          {posts.map((post: BlogEntry) => (
+            <li class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <article class="space-y-2">
+                <header class="space-y-1">
+                  <p class="text-[11px] text-slate-500">
+                    {dateFormatter.format(post.data.publishedAt)}
+                  </p>
+                  <h2 class="text-base md:text-lg font-semibold text-slate-900">
+                    <a
+                      href={`/blog/${post.slug}/`}
+                      class="hover:underline"
+                    >
+                      {post.data.title}
+                    </a>
+                  </h2>
+                  {post.data.description && (
+                    <p class="text-sm text-slate-700 leading-relaxed">
+                      {post.data.description}
+                    </p>
+                  )}
+                </header>
+
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 pt-1 text-[11px]">
+                    {post.data.tags.map((tag: string) => (
+                      <span class="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <div class="pt-2">
+                  <a
+                    href={`/blog/${post.slug}/`}
+                    class="inline-flex items-center text-xs font-semibold text-emerald-700 hover:underline"
+                  >
+                    記事を読む
+                  </a>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </main>
+</BaseLayout>

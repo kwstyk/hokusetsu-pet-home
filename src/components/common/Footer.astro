@@ -1,20 +1,47 @@
-<footer class="border-t bg-white mt-12">
-  <div class="max-w-5xl mx-auto px-4 py-6 text-xs text-gray-600">
-    <div class="flex flex-col gap-2">
+---
+// src/components/common/Footer.astro
+import { SITE } from '../../config/site';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-slate-200 bg-slate-50 mt-10">
+  <div class="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+    <div class="flex flex-col gap-4 text-[11px] text-slate-600 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        北摂ペットホーム（仮）<br />
-        大阪府〇〇市〇〇町〇〇<br />
-        宅地建物取引業 大阪府知事（ ）第 12345 号
+        <p class="font-semibold text-slate-800">
+          {SITE.name}
+        </p>
+        <p class="mt-1 text-[11px] text-slate-500">
+          北摂エリアでペットと暮らす住まい探しを、オンライン中心でサポートするためのサイトです。
+          現在は準備中のため、一部コンテンツはダミーを含みます。
+        </p>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <div>TEL: 000-0000-0000</div>
-        <div>MAIL: example@example.com</div>
-        <a href="/privacy/" class="underline">プライバシーポリシー</a>
-        <a href="/security/" class="underline">情報セキュリティ基本方針</a>
-      </div>
-      <div class="mt-2 text-[10px] text-gray-400">
-        掲載情報は変更される場合があります。最新の募集状況はLINE等でご確認ください。
-      </div>
+
+      <nav class="flex flex-wrap gap-3">
+        <a href="/first-time/" class="hover:underline">
+          初めての方へ
+        </a>
+        <a href="/guides/" class="hover:underline">
+          沿線・エリアガイド
+        </a>
+        <a href="/blog/" class="hover:underline">
+          ブログ
+        </a>
+        <a href="/privacy/" class="hover:underline">
+          プライバシーポリシー
+        </a>
+        <a href="/security/" class="hover:underline">
+          情報セキュリティ方針
+        </a>
+        <a href="/contact/" class="hover:underline">
+          お問い合わせ
+        </a>
+      </nav>
     </div>
+
+    <p class="mt-4 text-[10px] text-slate-400">
+      &copy; {currentYear} {SITE.name}. All rights reserved.
+    </p>
   </div>
 </footer>

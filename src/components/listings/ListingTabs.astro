@@ -1,0 +1,35 @@
+---
+export type TabKey = 'all' | 'rent' | 'buy';
+
+interface Props {
+  active: TabKey;
+}
+
+const { active } = Astro.props as Props;
+
+const tabs: { key: TabKey; label: string; href: string }[] = [
+  { key: 'all', label: 'すべて', href: '/listings/' },
+  { key: 'rent', label: '賃貸', href: '/listings/rent/' },
+  { key: 'buy', label: '購入', href: '/listings/buy/' },
+];
+---
+
+<div class="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1 text-xs">
+  {tabs.map((tab) => {
+    const isActive = tab.key === active;
+
+    return (
+      <a
+        href={tab.href}
+        class={
+          'rounded-full px-3 py-1 transition-colors ' +
+          (isActive
+            ? 'bg-white text-emerald-700 shadow-sm border border-emerald-200'
+            : 'text-slate-600 hover:bg-white hover:text-slate-900')
+        }
+      >
+        {tab.label}
+      </a>
+    );
+  })}
+</div>

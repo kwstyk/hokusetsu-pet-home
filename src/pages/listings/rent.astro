@@ -4,6 +4,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ListingCard from '../../components/listings/ListingCard.astro';
 import { getListingsByDealType } from '../../data/listings';
+import { SITE } from '../../config/site';
+import ListingTabs from '../../components/listings/ListingTabs.astro';
 
 const listings = getListingsByDealType('rent').filter(
   (l) => l.status === 'available',
@@ -14,22 +16,23 @@ const listings = getListingsByDealType('rent').filter(
   title="賃貸物件一覧｜北摂ペットホーム（仮）"
   description="北摂エリアのペット可賃貸物件を、ペット条件にこだわって探せます。"
 >
-  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-    <header class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">
-          賃貸物件一覧
-        </h1>
-        <p class="mt-1 text-sm text-slate-600">
-          ペット可の賃貸にしぼって掲載しています。条件に近いものがあれば、LINEで具体的にご相談ください。
-        </p>
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
+    <header class="space-y-4">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
+            RENT
+          </p>
+          <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+            賃貸物件を探す
+          </h1>
+          <p class="mt-2 text-sm text-slate-700">
+            北摂エリアのペット可賃貸だけを絞り込んで表示しています。
+          </p>
+        </div>
+
+        <ListingTabs active="rent" />
       </div>
-      <a
-        href="/contact/"
-        class="mt-3 inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 sm:mt-0"
-      >
-        条件を送ってLINEで相談
-      </a>
     </header>
 
     <section aria-label="賃貸物件一覧">

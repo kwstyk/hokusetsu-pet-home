@@ -2,13 +2,19 @@
 // src/pages/first-time.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
-
+import PageHeader from '../components/common/PageHeader.astro';
 const pageTitle = `初めての方へ｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
-
+    <PageHeader
+      label="FOR FIRST-TIME USERS"
+      title="初めての方へ"
+      lead="北摂エリアでペットと暮らす住まい探しを、オンライン中心で一緒に進めていくための前提や流れをまとめたページです。まずはここだけ読めば、「このサービスが自分に合いそうか」を判断しやすくなる想定です。"
+      note="※ 現時点では個人開発中のテストサイトです。実際の仲介業務はまだ開始していません。文言や方針は今後の検討に応じて変更される可能性があります。"
+      align="left"
+    />
     <!-- ヒーロー -->
     <section class="space-y-4">
       <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
@@ -183,42 +189,96 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
     </section>
 
     <!-- よくあるご質問 -->
+    {/* よくある質問（MVP版） */}
     <section class="space-y-4">
       <h2 class="text-xl font-semibold text-slate-900">
-        よくあるご質問（かんたん版）
+        よくあるご質問
       </h2>
-      <div class="space-y-3 text-sm text-slate-700">
-        <div class="rounded-lg bg-white p-4 border border-slate-200">
-          <p class="font-semibold text-slate-900 text-sm">
-            Q. まだ引っ越すかどうか決めていない段階でも相談していいですか？
+      <p class="text-sm text-slate-700 leading-relaxed">
+        実際にサービスを始める前提で想定している「よくある質問」を、先にまとめています。
+        現時点では準備中のプロトタイプサイトのため、将来の運用方針に応じて内容が変わる可能性があります。
+      </p>
+
+      <div class="space-y-3">
+        {/* Q1 */}
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <p class="text-xs font-semibold text-emerald-700">
+            Q1. 対応エリアはどこまでですか？
           </p>
-          <p class="mt-1 leading-relaxed">
-            A. 大丈夫です。「この条件だとどんな物件がありそうか」を一緒に確認するだけでもOKです。
-            具体的な時期が決まっていなくても、おおよそのイメージを共有してもらえれば十分です。
-          </p>
-        </div>
-        <div class="rounded-lg bg-white p-4 border border-slate-200">
-          <p class="font-semibold text-slate-900 text-sm">
-            Q. ペットの頭数が多い／大型犬ですが、相談できますか？
-          </p>
-          <p class="mt-1 leading-relaxed">
-            A. 条件はかなり絞られますが、まずは正直に状況を教えてください。
-            「ペット情報を隠して入居する」ことはおすすめしていません。
-            その前提で、現実的な選択肢を一緒に探します。
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            当面は「北摂」と呼ばれるエリア（豊中・吹田・箕面・池田・茨木・高槻など）を中心に想定しています。
+            将来は大阪市内や兵庫県東部に広げる可能性もありますが、
+            初期段階ではエリアを絞ることで、物件や街の情報をきちんと把握できる範囲にとどめる予定です。
           </p>
         </div>
-        <div class="rounded-lg bg-white p-4 border border-slate-200">
-          <p class="font-semibold text-slate-900 text-sm">
-            Q. 他サイトで見つけた物件についても相談できますか？
+
+        {/* Q2 */}
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <p class="text-xs font-semibold text-emerald-700">
+            Q2. ペットの種類や頭数に制限はありますか？
           </p>
-          <p class="mt-1 leading-relaxed">
-            A. 可能なものと難しいものがあります。
-            物件名やURLを送っていただければ、取り扱いの可否やペット条件について
-            確認できるかどうかをお伝えします。
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            建物や管理会社ごとに「犬は何頭まで」「猫は合計何匹まで」「中型犬以上は要相談」などの細かいルールがあります。
+            こちらから条件を押しつけることはありませんが、
+            実際にご紹介できる物件がどれくらいあるかは「犬・猫の種類」「体重」「頭数」によって大きく変わります。
+            まずは正直に状況を教えていただいたうえで、
+            現実的な選択肢がどこまでありそうかを一緒に確認していく形を考えています。
+          </p>
+        </div>
+
+        {/* Q3 */}
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <p class="text-xs font-semibold text-emerald-700">
+            Q3. 本当にオンラインだけで完結できますか？
+          </p>
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            物件の提案・条件のすり合わせ・申込書類のやり取り・IT重説・電子契約などは、
+            できる限りオンラインで完結させる前提で設計しています。
+            一方で、実際のお部屋の雰囲気を確認したい場合は現地内見も必要になるため、
+            「内見だけは現地で／それ以外はオンライン」というハイブリッド運用になる想定です。
+          </p>
+        </div>
+
+        {/* Q4 */}
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <p class="text-xs font-semibold text-emerald-700">
+            Q4. まだ引っ越し時期が決まっていないのですが、相談してもいいですか？
+          </p>
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            「1年以内に引っ越せたら良い」「今すぐではないが、相場感だけ知っておきたい」といった段階でも構いません。
+            ただし、具体的な物件の空き状況は数週間〜数か月単位で変わっていくため、
+            実際の候補探しは「だいたいこの時期に動きたい」という目安が見えたタイミングで改めて行う想定です。
+          </p>
+        </div>
+
+        {/* Q5 */}
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <p class="text-xs font-semibold text-emerald-700">
+            Q5. 他社サイトで見つけた物件も紹介してもらえますか？
+          </p>
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            SUUMOやHOME&apos;Sなどのポータルサイトで見つけた物件でも、
+            募集状況や取引形態によってはご紹介できるケースがあります。
+            すべての物件を扱えるわけではありませんが、
+            「この物件が気になっている」といった情報を共有していただければ、
+            こちらから管理会社や元付業者に確認し、対応可否をお伝えする形を考えています。
+          </p>
+        </div>
+
+        {/* Q6 */}
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <p class="text-xs font-semibold text-emerald-700">
+            Q6. いまはまだテストサイトのようですが、実際の仲介業務はいつから始まりますか？
+          </p>
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            現時点では、本番の宅建業としての運営開始前の準備段階です。
+            宅建業免許の取得や運営体制が整い次第、このページやトップページで正式な開始時期・体制を案内する予定です。
+            それまでは、あくまで「構想・コンセプトの検証」「北摂×ペット可物件の情報整理」を目的としたプロトタイプとしてご覧ください。
           </p>
         </div>
       </div>
     </section>
+
 
     <!-- 費用について -->
     <section class="space-y-4">
@@ -256,7 +316,7 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
         href="/contact/#line"
         class="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800"
       >
-        LINEで住まい探しの相談をする
+        自分の条件で探せるペット可物件をLINEで聞いてみる
       </a>
     </section>
   </main>

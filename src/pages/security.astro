@@ -2,24 +2,21 @@
 // src/pages/security.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
-
+import PageHeader from '../components/common/PageHeader.astro';
 const pageTitle = `情報セキュリティ基本方針｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
 
-    <section class="space-y-3">
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        情報セキュリティ基本方針
-      </h1>
-      <p class="leading-relaxed">
-        {SITE.name}（以下「当サービス」といいます。）は、住まい探しのご相談に際して、
+    <PageHeader
+      label="SECURITY"
+      title="情報セキュリティ基本方針"
+      lead={`${SITE.name}（以下「当サービス」といいます。）は、住まい探しのご相談に際して、
         お客様およびペットに関するさまざまな情報をお預かりします。
-        当サービスはこれらの情報を適切に取り扱うことを重要な責任と捉え、以下のとおり情報セキュリティに関する基本方針を定めます。
-      </p>
-    </section>
-
+        当サービスはこれらの情報を適切に取り扱うことを重要な責任と捉え、以下のとおり情報セキュリティに関する基本方針を定めます。`}
+      align="left"
+    />
     <section class="space-y-2">
       <h2 class="text-base font-semibold text-slate-900">1. 目的</h2>
       <p class="leading-relaxed">

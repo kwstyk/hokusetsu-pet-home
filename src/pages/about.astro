@@ -2,12 +2,19 @@
 // src/pages/about.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
-
+import PageHeader from '../components/common/PageHeader.astro';
 const pageTitle = `運営者情報｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
+    <PageHeader
+  label="ABOUT"
+  title="このサイトについて"
+  lead="北摂エリアのペット可物件をオンライン中心で案内するための、個人開発中の情報サイトです。ここでは、運営者の簡単な経歴や、このサイトで大切にしたいことをまとめています。"
+  note="※ 現在は本格的な仲介サービスとしてではなく、「将来の事業構想を検証するためのプロトタイプ」として公開しています。"
+/>
+
     {/* 冒頭：サービス概要 */}
     <section class="space-y-4">
       <h1 class="text-2xl md:text-3xl font-bold text-slate-900">

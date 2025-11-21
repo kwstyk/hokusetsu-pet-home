@@ -1,0 +1,51 @@
+---
+interface Props {
+  /** 小さなラベル（例: CASE STUDIES, GUIDE など） */
+  label?: string;
+  /** ページタイトル（必須） */
+  title: string;
+  /** タイトル下の説明文（リード文） */
+  lead?: string;
+  /** 補足の注意書き・注釈など（小さい文字） */
+  note?: string;
+  /** 左寄せ or 中央寄せ */
+  align?: 'left' | 'center';
+}
+
+const {
+  label,
+  title,
+  lead,
+  note,
+  align = 'left',
+} = Astro.props as Props;
+
+const alignClasses =
+  align === 'center'
+    ? 'items-center text-center mx-auto max-w-3xl'
+    : 'items-start text-left max-w-3xl';
+---
+
+<header class={`flex flex-col space-y-3 ${alignClasses}`}>
+  {label && (
+    <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
+      {label}
+    </p>
+  )}
+
+  <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+    {title}
+  </h1>
+
+  {lead && (
+    <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+      {lead}
+    </p>
+  )}
+
+  {note && (
+    <p class="text-[11px] text-slate-500 leading-relaxed">
+      {note}
+    </p>
+  )}
+</header>

@@ -3,29 +3,20 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../config/site';
 import { getAllCases, type CaseEntry } from '../../data/cases';
-
+import PageHeader from '../../components/common/PageHeader.astro';
 const pageTitle = `成約事例｜${SITE.name}`;
 const cases: CaseEntry[] = getAllCases();
 ---
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
-    <header class="space-y-3">
-      <p class="text-[11px] text-emerald-700 font-semibold tracking-wide">
-        CASE STUDIES
-      </p>
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        成約事例
-      </h1>
-      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        実際にご相談いただいたケースをもとに、「どんなお悩みがあって、どのような物件をご提案し、最終的にどう決まったか」を
-        できる範囲で記録していく予定のページです。
-      </p>
-      <p class="text-[11px] text-slate-500">
-        現時点ではダミー事例のみ掲載しています。実際の運用フェーズでは、個人が特定されない範囲で要約した事例のみを掲載する方針です。
-      </p>
-    </header>
-
+    <PageHeader
+      label="CASE STUDIES"
+      title="成約事例"
+      lead="実際にご相談いただいたケースをもとに、「どんなお悩みがあって、どのような物件をご提案し、最終的にどう決まったか」をできる範囲で記録していく予定のページです。"
+      note="現時点ではダミー事例のみ掲載しています。実際の運用フェーズでは、個人が特定されない範囲で要約した事例のみを掲載する方針です。"
+      align="left"
+    />
     {cases.length === 0 ? (
       <p class="text-sm text-slate-600">
         まだ公開中の成約事例はありません。準備が整い次第、こちらに掲載していきます。

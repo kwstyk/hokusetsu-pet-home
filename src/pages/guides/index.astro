@@ -3,7 +3,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../config/site';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
+import PageHeader from '../../components/common/PageHeader.astro';
 type GuideEntry = CollectionEntry<'guides'>;
 
 const pageTitle = `沿線・エリアガイド｜${SITE.name}`;
@@ -27,21 +27,13 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', { dateStyle: 'medium' });
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
-    {/* ヘッダー */}
-    <section class="space-y-4">
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        沿線・エリアガイド
-      </h1>
-      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        北摂エリアの「沿線ごとのざっくりした雰囲気」を整理していくためのコーナーです。
-        物件を探し始める前に、まずはエリアのイメージを掴むための読みものとして育てていく予定です。
-      </p>
-      <p class="text-xs text-slate-500">
-        いまはサンプル記事のみ掲載しています。実運用を開始したら、阪急・JR・北大阪急行などの沿線ごとに
-        少しずつ追加していく想定です。
-      </p>
-    </section>
-
+    <PageHeader
+      label="GUIDES"
+      title="沿線・エリアガイド"
+      lead="北摂エリアの「沿線ごとのざっくりした雰囲気」を整理していくためのコーナーです。物件を探し始める前に、まずはエリアのイメージを掴むための読みものとして育てていく予定です。"
+      note="いまはサンプル記事のみ掲載しています。実運用を開始したら、阪急・JR・北大阪急行などの沿線ごとに少しずつ追加していく想定です。"
+      align="left"
+    />
     {/* 一覧 */}
     <section class="space-y-4">
       {guides.length === 0 ? (

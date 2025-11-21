@@ -2,27 +2,19 @@
 // src/pages/map.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
-
+import PageHeader from '../components/common/PageHeader.astro';
 const pageTitle = `北摂ペット生活マップ｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
-    <header class="space-y-3">
-      <p class="text-[11px] text-emerald-700 font-semibold tracking-wide">
-        PET LIFE MAP
-      </p>
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        北摂ペット生活マップ
-      </h1>
-      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        北摂エリアでペットと暮らすときに、よく使いそうなスポットをひとつの地図にまとめていく予定のページです。
-        物件を見に行く前に「このあたりってどんな生活動線になりそうか？」を掴むための補助として使うイメージです。
-      </p>
-      <p class="text-[11px] text-slate-500">
-        いまはマップの枠だけ用意している状態です。実際に運用する際は、Googleマイマップで作成した地図をこの枠に埋め込みます。
-      </p>
-    </header>
+    <PageHeader
+      label="PET LIFE MAP"
+      title="北摂ペット生活マップ"
+      lead="北摂エリアでペットと暮らすときに、よく使いそうなスポットをひとつの地図にまとめていく予定のページです。物件を見に行く前に「このあたりってどんな生活動線になりそうか？」を掴むための補助として使うイメージです。"
+      note="いまはマップの枠だけ用意している状態です。実際に運用する際は、Googleマイマップで作成した地図をこの枠に埋め込みます。"
+      align="left"
+    />
 
     <section class="space-y-3">
       <h2 class="text-sm font-semibold text-slate-900">

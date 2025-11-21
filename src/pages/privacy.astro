@@ -2,23 +2,18 @@
 // src/pages/privacy.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
-
+import PageHeader from '../components/common/PageHeader.astro';
 const pageTitle = `プライバシーポリシー｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8 text-sm text-slate-700">
-    <section class="space-y-3">
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        プライバシーポリシー
-      </h1>
-      <p class="leading-relaxed">
-        {SITE.name}（以下「当サービス」といいます。）は、
-        本サービスの提供にあたり取得するお客様の個人情報について、
-        以下のとおりプライバシーポリシーを定めます。
-      </p>
-    </section>
-
+    <PageHeader
+      label="PRIVACY"
+      title="プライバシーポリシー"
+      lead={`${SITE.name}（以下「当サービス」といいます。）は、
+        本サービスの提供にあたり取得するお客様の個人情報について、`}
+      />
     <section class="space-y-2">
       <h2 class="text-base font-semibold text-slate-900">1. 取得する情報</h2>
       <p class="leading-relaxed">

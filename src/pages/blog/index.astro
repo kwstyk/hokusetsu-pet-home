@@ -3,7 +3,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../config/site';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
+import PageHeader from '../../components/common/PageHeader.astro';
 type BlogEntry = CollectionEntry<'blog'>;
 
 const pageTitle = `ブログ・読みもの｜${SITE.name}`;
@@ -20,20 +20,13 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', { dateStyle: 'medium' });
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
-    {/* ヘッダー */}
-    <section class="space-y-4">
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-        ブログ・読みもの
-      </h1>
-      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-        北摂でペットと暮らす住まい探しにまつわる考え方や、内見時のチェックポイントなどを
-        少しずつ整理していく予定のコーナーです。
-      </p>
-      <p class="text-xs text-slate-500">
-        現時点ではサンプル記事のみ掲載しています。実際の運用開始後、順次コンテンツを追加していく想定です。
-      </p>
-    </section>
-
+    <PageHeader
+        label="BLOG"
+        title="ブログ・読みもの"
+        lead="北摂でペットと暮らす住まい探しにまつわる考え方や、内見時のチェックポイントなどを少しずつ整理していく予定のコーナーです。"
+        note="現時点ではサンプル記事のみ掲載しています。実際の運用開始後、順次コンテンツを追加していく想定です。"
+        align="left"
+    />
     {/* 記事一覧 */}
     <section class="space-y-4">
       {posts.length === 0 ? (

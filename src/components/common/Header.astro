@@ -4,13 +4,15 @@ import { SITE } from '../../config/site';
 
 const navLinks: { href: string; label: string }[] = [
   { href: '/', label: 'ホーム' },
-  { href: '/listings/', label: '物件を探す' },
+  { href: '/listings/', label: '物件を見る' },
   { href: '/guides/', label: '沿線・エリアガイド' },
   { href: '/blog/', label: 'ブログ・読みもの' },
   { href: '/cases/', label: '成約事例' },
   { href: '/first-time/', label: '初めての方へ' },
   { href: '/contact/', label: 'LINE・相談窓口' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="border-b border-slate-200 bg-white/90 backdrop-blur">
@@ -26,16 +28,28 @@ const navLinks: { href: string; label: string }[] = [
     </a>
 
     <!-- PC ナビゲーション -->
-    <nav class="hidden items-center gap-4 text-xs font-medium text-slate-700 lg:flex">
-      {navLinks.map((item) => (
-        <a
-          href={item.href}
-          class="rounded-md px-2 py-1 hover:bg-slate-100 hover:text-slate-900"
-        >
-          {item.label}
-        </a>
-      ))}
-    </nav>
+<nav class="hidden items-center gap-4 text-xs font-medium text-slate-700 lg:flex">
+  {navLinks.map((item) => {
+    const isRoot = item.href === '/';
+    const isActive = isRoot
+      ? currentPath === '/'
+      : currentPath.startsWith(item.href);
+
+    return (
+      <a
+        href={item.href}
+        class={
+          'rounded-md px-2 py-1 transition-colors ' +
+          (isActive
+            ? 'bg-emerald-50 text-emerald-700'
+            : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900')
+        }
+      >
+        {item.label}
+      </a>
+    );
+  })}
+</nav>
 
     <!-- PC の右端余白（今は何も置かない） -->
     <div class="hidden lg:block w-24"></div>
@@ -51,16 +65,29 @@ const navLinks: { href: string; label: string }[] = [
           <span class="block h-[1px] w-4 bg-slate-700"></span>
         </span>
       </summary>
-      <div class="absolute right-0 z-20 mt-2 w-56 rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
-        {navLinks.map((item) => (
-          <a
-            href={item.href}
-            class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
-          >
-            {item.label}
-          </a>
-        ))}
-      </div>
+<div class="absolute right-0 z-20 mt-2 w-56 rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
+  {navLinks.map((item) => {
+    const isRoot = item.href === '/';
+    const isActive = isRoot
+      ? currentPath === '/'
+      : currentPath.startsWith(item.href);
+
+    return (
+      <a
+        href={item.href}
+        class={
+          'block px-3 py-1.5 text-xs transition-colors ' +
+          (isActive
+            ? 'bg-emerald-50 text-emerald-700'
+            : 'text-slate-700 hover:bg-slate-50')
+        }
+      >
+        {item.label}
+      </a>
+    );
+  })}
+</div>
+
     </details>
   </div>
 </header>

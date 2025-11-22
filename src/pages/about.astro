@@ -3,17 +3,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
 import PageHeader from '../components/common/PageHeader.astro';
+
 const pageTitle = `運営者情報｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
     <PageHeader
-  label="ABOUT"
-  title="このサイトについて"
-  lead="北摂エリアのペット可物件をオンライン中心で案内するための、個人開発中の情報サイトです。ここでは、運営者の簡単な経歴や、このサイトで大切にしたいことをまとめています。"
-  note="※ 現在は本格的な仲介サービスとしてではなく、「将来の事業構想を検証するためのプロトタイプ」として公開しています。"
-/>
+      label="ABOUT"
+      title="このサイトについて"
+      lead="北摂エリアのペット可物件をオンライン中心で案内するための、個人開発中の情報サイトです。ここでは、運営者の簡単な経歴や、このサイトで大切にしたいことをまとめています。"
+      note="※ 現在は本格的な仲介サービスとしてではなく、「将来の事業構想を検証するためのプロトタイプ」として公開しています。"
+    />
 
     {/* 冒頭：サービス概要 */}
     <section class="space-y-4">
@@ -134,6 +135,47 @@ const pageTitle = `運営者情報｜${SITE.name}`;
           事業用物件・店舗・投資用物件・物件の売却仲介については、現在は原則取り扱っていません。
           どうしても北摂エリアでのご相談を希望される場合は、個別にご事情をお伺いした上で対応可否を判断いたします。
         </p>
+      </div>
+    </section>
+
+    {/* 物件オーナー・法人の方へ */}
+    <section class="space-y-3 text-sm text-slate-700">
+      <h2 class="text-lg font-semibold text-slate-900">
+        物件オーナー・法人の方へ
+      </h2>
+      <p class="leading-relaxed">
+        北摂エリアで賃貸物件をお持ちのオーナー様や、
+        企業の社宅・従業員向けの住まい探しをご検討中のご担当者様向けには、
+        別途まとめたご案内ページをご用意しています。
+      </p>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>ペット可募集への切り替えや、条件設定に関するご相談</li>
+        <li>空室対策としての募集条件の見直し・情報整理</li>
+        <li>法人契約・社宅候補エリアのご相談（北摂エリアを中心に）</li>
+      </ul>
+      <p class="text-xs text-slate-500 leading-relaxed">
+        具体的なサービス内容や料金体系、運営体制については、
+        下記の「オーナー・法人向けページ」をご確認ください。
+      </p>
+      <div class="flex flex-wrap gap-2 pt-1 text-xs">
+        <a
+          href="/corp/"
+          class="inline-flex items-center rounded-full border border-slate-300 px-3 py-1.5 hover:bg-slate-50"
+        >
+          運営・サービス概要を見る
+        </a>
+        <a
+          href="/corp/owners/"
+          class="inline-flex items-center rounded-full border border-slate-300 px-3 py-1.5 hover:bg-slate-50"
+        >
+          物件オーナー様向けのご案内
+        </a>
+        <a
+          href="/corp/contact/"
+          class="inline-flex items-center rounded-full border border-emerald-500 px-3 py-1.5 text-emerald-800 hover:bg-emerald-50"
+        >
+          オーナー・法人向けお問い合わせ
+        </a>
       </div>
     </section>
   </main>

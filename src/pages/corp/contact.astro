@@ -1,0 +1,56 @@
+---
+// src/pages/corp/contact.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="事業者向けお問い合わせ｜北摂ペットホーム（仮）">
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
+    <section class="space-y-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+        事業者向けお問い合わせ
+      </h1>
+      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+        物件オーナー様・不動産会社様・ペット関連店舗様・士業の先生方など、
+        事業者としてのご相談はこちらからご連絡ください。
+      </p>
+      <p class="text-xs text-slate-500">
+        ※現時点では専用フォームや業者間システムとの連携は行っていません。
+        下記のボタンから、一般のお問い合わせページ／LINE窓口へお進みください。
+      </p>
+    </section>
+
+    <section class="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-5">
+      <h2 class="text-base font-semibold text-slate-900">
+        お問い合わせ方法
+      </h2>
+      <p class="text-sm text-slate-700">
+        まずは通常のお問い合わせページからご連絡いただき、
+        冒頭に「【事業者からの相談】」と付けていただけると助かります。
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a
+          href="/contact/"
+          class="inline-flex items-center justify-center rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700"
+        >
+          お問い合わせページへ進む
+        </a>
+      </div>
+    </section>
+
+    <section class="space-y-3 text-sm text-slate-700">
+      <h2 class="text-base font-semibold text-slate-900">
+        メッセージに含めていただきたい内容
+      </h2>
+      <ul class="list-disc space-y-1 pl-5">
+        <li>御社名・ご担当者名</li>
+        <li>ご連絡先（メールアドレス・電話番号など）</li>
+        <li>ご相談の概要（物件オーナー様／管理会社様／店舗様 など）</li>
+        <li>急ぎかどうか・ご希望の返信方法</li>
+      </ul>
+      <p class="text-xs text-slate-500">
+        内容によってはお受けできないケースや、お返事にお時間を頂く場合があります。
+        その点あらかじめご了承ください。
+      </p>
+    </section>
+  </main>
+</BaseLayout>

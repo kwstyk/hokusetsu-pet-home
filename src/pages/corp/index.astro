@@ -1,0 +1,77 @@
+---
+// src/pages/corp/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="運営・事業者向け情報｜北摂ペットホーム（仮）">
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
+    <section class="space-y-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+        運営・事業者向け情報
+      </h1>
+      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+        このページは、物件オーナー様・不動産会社様・ペット関連事業者様など、
+        「北摂ペットホーム（仮）」との連携をご検討いただいている方向けの
+        案内をまとめたものです。
+      </p>
+      <p class="text-xs text-slate-500">
+        ※一般のお部屋探しをご希望の方は、上部メニューの
+        「物件を見る」「初めての方へ」「お問い合わせ」からご覧ください。
+      </p>
+    </section>
+
+    <section class="grid gap-6 md:grid-cols-2">
+      <a
+        href="/corp/owners/"
+        class="block rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
+      >
+        <h2 class="text-base font-semibold text-slate-900">
+          物件オーナー様へ
+        </h2>
+        <p class="mt-2 text-sm text-slate-700">
+          ペット可募集を検討されているオーナー様向けに、
+          「どこまで許容するか」「どんなルールにするか」など、
+          募集設計のお手伝い内容をまとめています。
+        </p>
+        <p class="mt-3 text-xs font-medium text-emerald-700">
+          詳しく見る →
+        </p>
+      </a>
+
+      <a
+        href="/corp/services/"
+        class="block rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
+      >
+        <h2 class="text-base font-semibold text-slate-900">
+          不動産会社・事業者の皆さまへ
+        </h2>
+        <p class="mt-2 text-sm text-slate-700">
+          他の不動産会社様・管理会社様・士業・ペット関連店舗様との
+          相互送客や情報連携についての方針・メニュー案を掲載しています。
+        </p>
+        <p class="mt-3 text-xs font-medium text-emerald-700">
+          連携メニューを見る →
+        </p>
+      </a>
+    </section>
+
+    <section class="space-y-3 text-sm text-slate-700">
+      <h2 class="text-base font-semibold text-slate-900">
+        個人規模ならではのスタンス
+      </h2>
+      <p>
+        北摂ペットホーム（仮）は、当面は個人〜ごく小規模体制での運営を前提としています。
+        そのため、一度に多くの案件をお受けすることはできませんが、
+        案件ごとの背景や事情をできるだけ丁寧に共有しながら、
+        「無理のない範囲で長く続く関係」を優先したいと考えています。
+      </p>
+      <p class="text-xs text-slate-500">
+        具体的なご相談は、
+        <a href="/corp/contact/" class="underline">
+          事業者向けお問い合わせページ
+        </a>
+        からご連絡ください。
+      </p>
+    </section>
+  </main>
+</BaseLayout>

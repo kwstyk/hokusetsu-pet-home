@@ -3,8 +3,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
 import CtaButtonRow from '../components/common/CtaButtonRow.astro';
+import { getListingById } from '../data/listings';
 
 const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
+const ref = Astro.url.searchParams.get('ref');
+const refListing = ref ? getListingById(ref) : undefined;
 ---
 
 <BaseLayout title={pageTitle}>
@@ -17,6 +20,14 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
         基本的に<span class="text-emerald-700">LINEでお受けしています。</span>
       </h1>
 
+      {refListing && (
+        <p class="text-xs text-emerald-900 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2">
+          ※ 「{refListing.title}（物件ID：{refListing.id}）」についてのご相談として
+          このページを開いています。LINEでメッセージを送る際に、
+          物件名を添えていただけるとご案内がスムーズです。
+        </p>
+      )}
+      
       <p class="text-sm md:text-base text-slate-700 leading-relaxed">
         {SITE.shortName}では、やり取りの履歴を残しつつ、
         すきま時間でご相談いただけるよう、

@@ -2,11 +2,20 @@
 // src/pages/listings/[slug].astro
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import type { Listing } from '../../data/listings';
+import { SITE } from '../../config/site';
+import type { Listing as BaseListing } from '../../data/listings';
 import { getAllListings } from '../../data/listings';
 
+// data/listings.ts の Listing に、
+// このページで使っている「偏愛用フィールド」を上乗せした型
+type RichListing = BaseListing & {
+  agentComment?: string;
+  petPros?: string[];
+  petCons?: string[];
+};
+
 export interface Props {
-  listing: Listing;
+  listing: RichListing;
 }
 
 // ビルド時に「どの slug のページを作るか」を決める
@@ -19,83 +28,112 @@ export function getStaticPaths() {
   }));
 }
 
+// getStaticPaths で渡した props を受け取る
 const { listing } = Astro.props as Props;
 
 const isRent = listing.dealType === 'rent';
-const contactUrl = `/contact/?ref=${encodeURIComponent(listing.id)}`;
+const isAvailable = listing.status === 'available';
+
+const pageTitle = `${listing.title}｜${SITE.name}`;
+const lineUrl = `${SITE.lineUrl}`;
 ---
 
-<BaseLayout
-  title={`${listing.title}｜北摂ペットホーム（仮）`}
-  description={listing.summary}
->
-  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-    <header class="mb-6 space-y-2">
-      <p class="text-xs text-slate-500">{listing.areaLabel}</p>
-      <h1 class="text-2xl font-bold tracking-tight text-slate-900">
-        {listing.title}
-      </h1>
-      <div class="flex flex-wrap items-center gap-2">
-        <span
-          class={`inline-flex items-center rounded-full px-3 py-0.5 text-xs font-semibold ${
-            isRent
-              ? 'bg-sky-50 text-sky-700'
-              : 'bg-emerald-50 text-emerald-700'
-          }`}
-        >
-          {isRent ? '賃貸' : '購入'}
-        </span>
-        <span class="inline-flex items-center rounded-full bg-slate-100 px-3 py-0.5 text-xs text-slate-700">
-          {listing.status === 'available'
-            ? '募集中'
-            : listing.status === 'reserved'
-            ? '申込あり・審査中'
-            : '成約済み（現在募集していません）'}
-        </span>
-        {listing.petTags.map((tag) => (
-          <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-0.5 text-[11px] text-emerald-700">
-            {tag}
-          </span>
-        ))}
-      </div>
-      <p class="mt-2 text-sm text-slate-700">
-        {listing.summary}
+<BaseLayout title={pageTitle} description={listing.summary}>
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
+    <!-- ヘッダー：タイトル＋ステータス＋タグ -->
+    <header class="space-y-3">
+      <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
+        LISTING DETAIL
       </p>
+
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div class="space-y-1">
+          <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
+            {listing.title}
+          </h1>
+          <p class="text-xs text-slate-500">
+            {listing.areaLabel}
+          </p>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            {listing.summary}
+          </p>
+        </div>
+
+        <div class="flex flex-col items-end gap-2 text-xs">
+          <span
+            class:list={[
+              'inline-flex items-center rounded-full px-3 py-0.5 text-[11px] font-semibold',
+              isAvailable
+                ? 'bg-emerald-100 text-emerald-800'
+                : listing.status === 'reserved'
+                  ? 'bg-amber-100 text-amber-800'
+                  : 'bg-slate-200 text-slate-600',
+            ]}
+          >
+            {listing.status === 'available'
+              ? '募集中'
+              : listing.status === 'reserved'
+                ? '申込あり（募集中止の可能性あり）'
+                : '募集終了'}
+          </span>
+          <p class="text-[11px] text-slate-500">
+            最終確認日：{listing.lastCheckedAt}
+          </p>
+        </div>
+      </div>
+
+      {listing.petTags && listing.petTags.length > 0 && (
+        <div class="flex flex-wrap gap-1.5">
+          {listing.petTags.map((tag) => (
+            <span
+              class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-800"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </header>
 
-    <section class="grid gap-8 md:grid-cols-[2fr,1.4fr]">
-      {/* 左：写真エリア */}
-      <div class="space-y-3">
-        <div class="aspect-4/3 overflow-hidden rounded-xl bg-slate-100">
-          {listing.images?.[0] ? (
-            <img
-              src={listing.images[0]}
-              alt={listing.title}
-              class="h-full w-full object-cover"
-              loading="lazy"
-            />
-          ) : (
-            <div class="flex h-full items-center justify-center text-xs text-slate-400">
-              写真準備中
-            </div>
-          )}
-        </div>
-        {listing.images && listing.images.length > 1 && (
-          <div class="flex gap-2">
-            {listing.images.slice(1).map((img) => (
+    <!-- 写真＋概要（2カラム） -->
+    <section class="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)]">
+      <!-- 左：写真 -->
+      <div class="space-y-4">
+        {listing.images && listing.images.length > 0 ? (
+          <>
+            <div class="aspect-video overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
               <img
-                src={img}
+                src={listing.images[0]}
                 alt={listing.title}
-                class="h-20 w-28 rounded-lg object-cover"
                 loading="lazy"
+                class="h-full w-full object-cover"
               />
-            ))}
+            </div>
+
+            {listing.images.length > 1 && (
+              <div class="grid grid-cols-3 gap-2">
+                {listing.images.slice(1).map((img) => (
+                  <div class="aspect-video overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+                    <img
+                      src={img}
+                      alt={listing.title}
+                      loading="lazy"
+                      class="h-full w-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <div class="flex aspect-video items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 text-xs text-slate-400">
+            写真は準備中です。
           </div>
         )}
       </div>
 
-      {/* 右：概要ボックス */}
-      <aside class="space-y-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+      <!-- 右：賃料/価格＋基本情報＋CTA -->
+      <aside class="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <div class="space-y-1 text-sm">
           {isRent ? (
             <>
@@ -122,7 +160,8 @@ const contactUrl = `/contact/?ref=${encodeURIComponent(listing.id)}`;
               </p>
               {listing.managementFeeMonthly && (
                 <p class="text-xs text-slate-600">
-                  管理費：{listing.managementFeeMonthly.toLocaleString()}
+                  管理費：
+                  {listing.managementFeeMonthly.toLocaleString()}
                   円／月
                 </p>
               )}
@@ -140,7 +179,7 @@ const contactUrl = `/contact/?ref=${encodeURIComponent(listing.id)}`;
           <dt class="text-slate-500">所在地</dt>
           <dd>{listing.addressSummary}</dd>
 
-          <dt class="text-slate-500">最寄り</dt>
+          <dt class="text-slate-500">最寄り駅</dt>
           <dd>
             {listing.stationLine}・{listing.nearestStation} 徒歩
             {listing.stationWalkMinutes}分
@@ -155,7 +194,7 @@ const contactUrl = `/contact/?ref=${encodeURIComponent(listing.id)}`;
           <dt class="text-slate-500">建物種別</dt>
           <dd>{listing.buildingType}</dd>
 
-          <dt class="text-slate-500">築年</dt>
+          <dt class="text-slate-500">築年数</dt>
           <dd>{listing.builtYear}年築</dd>
 
           <dt class="text-slate-500">所在階</dt>
@@ -167,91 +206,144 @@ const contactUrl = `/contact/?ref=${encodeURIComponent(listing.id)}`;
           <dd>{listing.direction}</dd>
         </dl>
 
-        <div class="space-y-1 text-xs text-slate-700">
-          <p class="font-semibold text-slate-900">設備など</p>
-          <p>{listing.equipment.join('、 ')}</p>
+        <div class="space-y-2">
+          <a
+            href={lineUrl}
+            class="inline-flex w-full items-center justify-center rounded-full bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700"
+          >
+            このお部屋についてLINEで相談する
+          </a>
+          <p class="text-[11px] text-slate-500">
+            募集状況や条件は変更になる場合があります。最新の状況はLINEにてご確認ください。
+          </p>
         </div>
-
-        <a
-          href={contactUrl}
-          class="inline-flex w-full items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
-        >
-          この物件についてLINEで相談する
-        </a>
-
-        <p class="text-[11px] text-slate-500">
-          募集状況や条件は変更になる場合があります。最新の募集状況はLINEにてご確認ください。
-        </p>
       </aside>
     </section>
 
-    <section class="mt-10 space-y-4">
-      <h2 class="text-base font-semibold text-slate-900">
-        ペットとの暮らしのイメージ
-      </h2>
-      <p class="text-sm leading-relaxed text-slate-700">
-        {listing.environmentSummary}
-      </p>
+    <!-- 担当者のひとこと（偏愛コメント） -->
+    {(listing.agentComment ||
+      (listing.petPros && listing.petPros.length > 0) ||
+      (listing.petCons && listing.petCons.length > 0)) && (
+      <section class="space-y-3 rounded-2xl bg-white p-4 md:p-6">
+        <h2 class="text-base font-semibold text-slate-900">
+          担当者コメント（ペット目線で見た、このお部屋のこと）
+        </h2>
 
-      <div class="grid gap-4 text-sm md:grid-cols-2">
-        <div class="rounded-lg bg-emerald-50 p-4">
-          <h3 class="mb-1 text-xs font-semibold text-emerald-800">
-            こんな方に向いています
-          </h3>
-          <ul class="list-disc pl-5 text-xs text-emerald-900">
-            {listing.suitableFor.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
+        {listing.agentComment && (
+          <p class="text-sm leading-relaxed text-slate-700">
+            {listing.agentComment}
+          </p>
+        )}
+
+        <div class="grid gap-4 text-sm md:grid-cols-2">
+          {listing.petPros && listing.petPros.length > 0 && (
+            <div class="space-y-1">
+              <h3 class="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                良さそうなポイント
+              </h3>
+              <ul class="space-y-1 list-disc pl-4">
+                {listing.petPros.map((item) => (
+                  <li class="text-slate-700">{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {listing.petCons && listing.petCons.length > 0 && (
+            <div class="space-y-1">
+              <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-700">
+                注意してほしいポイント
+              </h3>
+              <ul class="space-y-1 list-disc pl-4">
+                {listing.petCons.map((item) => (
+                  <li class="text-slate-700">{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-        <div class="rounded-lg bg-slate-50 p-4">
-          <h3 class="mb-1 text-xs font-semibold text-slate-800">
-            あまりおすすめできないケース
-          </h3>
-          <ul class="list-disc pl-5 text-xs text-slate-900">
-            {listing.notSuitableFor.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
+      </section>
+    )}
+
+    <!-- ペットとの暮らしのイメージ（既存の environmentSummary＋適性） -->
+    {(listing.environmentSummary ||
+      (listing.suitableFor && listing.suitableFor.length > 0) ||
+      (listing.notSuitableFor && listing.notSuitableFor.length > 0)) && (
+      <section class="space-y-4">
+        <h2 class="text-base font-semibold text-slate-900">
+          ペットとの暮らしのイメージ
+        </h2>
+
+        {listing.environmentSummary && (
+          <p class="text-sm leading-relaxed text-slate-700">
+            {listing.environmentSummary}
+          </p>
+        )}
+
+        <div class="grid gap-4 text-sm md:grid-cols-2">
+          {listing.suitableFor && listing.suitableFor.length > 0 && (
+            <div class="space-y-1">
+              <h3 class="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                こういう方・こういう子に向いていそう
+              </h3>
+              <ul class="space-y-1 list-disc pl-4">
+                {listing.suitableFor.map((item) => (
+                  <li class="text-slate-700">{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {listing.notSuitableFor && listing.notSuitableFor.length > 0 && (
+            <div class="space-y-1">
+              <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-700">
+                あまりおすすめしづらいケース
+              </h3>
+              <ul class="space-y-1 list-disc pl-4">
+                {listing.notSuitableFor.map((item) => (
+                  <li class="text-slate-700">{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-      </div>
-    </section>
-        <!-- ここより上は既存の詳細情報 -->
+      </section>
+    )}
+
+    <!-- 周辺マップ（住所がある場合だけ） -->
     {listing.address && (
-      <section class="mt-8 space-y-3">
-        <h2 class="text-sm font-semibold text-slate-900">
-          所在地・周辺地図
+      <section class="space-y-3">
+        <h2 class="text-base font-semibold text-slate-900">
+          周辺環境と場所のイメージ
         </h2>
 
         <p class="text-sm text-slate-700">
           住所：{listing.address}
         </p>
 
-        <div class="mt-2 aspect-video w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
-        <iframe
-          src={`https://www.google.com/maps?q=${encodeURIComponent(
-            listing.address
-          )}&t=m&z=17&iwloc=near&output=embed`}
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          class="h-full w-full border-0"
-        ></iframe>
-
+        <div class="mt-2 aspect-video w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+          <iframe
+            src={`https://www.google.com/maps?q=${encodeURIComponent(
+              listing.address,
+            )}&t=m&z=17&iwloc=near&output=embed`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="h-full w-full border-0"
+          ></iframe>
         </div>
 
         <p class="text-[11px] text-slate-500">
-          ※ 表示位置・縮尺は自動計算です。実際の位置と多少ずれる場合があります。
-        </p>
-
-        <p class="text-[11px] text-slate-500">
-          周辺のペット同伴可スポットや動物病院などをまとめて確認したい場合は、準備中の
-          <a href="/map/" class="font-semibold text-emerald-700 hover:underline">
+          周辺のペット同伴可スポットや動物病院などをまとめて確認したい場合は、
+          準備中の{' '}
+          <a
+            href="/map/"
+            class="font-semibold text-emerald-700 hover:underline"
+          >
             北摂ペット生活マップ
-          </a>
+          </a>{' '}
           もあわせてご覧ください。
         </p>
       </section>
     )}
-
-  </main>
+  </div>
 </BaseLayout>

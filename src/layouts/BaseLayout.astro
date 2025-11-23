@@ -4,17 +4,40 @@ import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
 import { SITE } from '../config/site';
 
-const defaultTitle = `${SITE.name}｜北摂のペット可賃貸・ペット可マンション専門仲介`;
-const { title = defaultTitle } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description }: Props = Astro.props;
+
+// ページタイトル・ディスクリプションのデフォルト
+const pageTitle =
+  title ?? `${SITE.name}｜北摂のペット可賃貸・ペット可マンション専門仲介`;
+const pageDescription = description ?? SITE.description;
+
+// カノニカル URL
+const canonicalUrl = new URL(Astro.url.pathname, SITE.url).toString();
+
+// プレオープン中は noindex、正式オープン時に SITE.isPractice を false にするだけで index,follow に切り替え
+const robots = SITE.isPractice ? 'noindex, nofollow' : 'index, follow';
 ---
 
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {/* 本番公開するつもりなら、最終的にはこの行を消す */}
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- OGP -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
   </head>
   <body class="bg-gray-50 text-gray-900">
     <Header />

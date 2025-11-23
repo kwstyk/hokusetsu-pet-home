@@ -9,6 +9,6 @@ export const SITE = {
   lineUrl: 'https://line.me/R/ti/p/@your-line-idKOKOWOSASHIKAERU',
   contactEmail: 'example@example.com', // 実運用時に差し替え
   businessHours: '平日 10:00〜18:00（目安）',
-  url: 'https://hokusetsu-shippo.jp',
+  url: 'https://www.hokusetsu-shippo.jp',
   isPractice: true, // まだ起業してないフラグ（表示に使ってもいい）
 } as const;

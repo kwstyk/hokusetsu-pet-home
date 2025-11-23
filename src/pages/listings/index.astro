@@ -1,72 +1,237 @@
 ---
 // src/pages/listings/index.astro
 
-import ListingTabs from '../../components/listings/ListingTabs.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ListingCard from '../../components/listings/ListingCard.astro';
-import { getAllListings } from '../../data/listings';
+import ListingTabs from '../../components/listings/ListingTabs.astro';
 import { SITE } from '../../config/site';
+import { getAllListings } from '../../data/listings';
 
-const listings = getAllListings().filter(
-  (l) => l.status === 'available',
-);
+const allListings = getAllListings();
+
+// エリアの選択肢（city のユニーク値）
+const cityOptions = Array.from(
+  new Set(allListings.map((l) => l.city)),
+).sort();
+
+// ペット条件タグの選択肢（petTags のユニーク値）
+const petTagOptions = Array.from(
+  new Set(allListings.flatMap((l) => l.petTags ?? [])),
+).sort();
+
+const pageTitle = `掲載中のペット可物件一覧｜${SITE.name}`;
 ---
 
-<BaseLayout
-  title="物件一覧｜北摂ペットホーム（仮）"
-  description="北摂エリアのペット可賃貸・購入物件を、ペット条件から探せます。"
->
-<section class="mb-6 space-y-2">
-  <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-    掲載中のペット可物件（北摂エリア）
-  </h1>
-  <p class="text-sm md:text-base text-slate-700 leading-relaxed">
-    ここでは、北摂エリアで「ペットとの暮らし」を軸に選んだ
-    一部の物件だけを掲載しています。<br class="hidden md:block" />
-    実際にご紹介できる物件は、レインズ等の市場流通物件や、
-    管理会社・オーナー様経由のものを含めて、掲載物件よりも多く存在します。
-  </p>
-  <p class="text-[11px] text-slate-500 leading-relaxed">
-    ※ ポータルサイトのような「全物件一覧」ではありません。<br />
-    ※ 最新の空き状況や、ここに載っていない候補については、
-    <a href="/contact/#line" class="underline underline-offset-2 text-emerald-700">
-      LINE で個別にお調べします
-    </a>。
-  </p>
-</section>
+<BaseLayout title={pageTitle}>
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
 
-<main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
-    <header class="space-y-4">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <!-- ページヘッダー -->
+    <header class="space-y-3">
+      <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
+        LISTINGS
+      </p>
+      <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
-            SEARCH
-          </p>
-          <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-            物件を探す
+          <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
+            掲載中のペット可物件（北摂エリア）
           </h1>
-          <p class="mt-2 text-sm text-slate-700">
-            北摂エリアのペット可物件だけを、賃貸・購入に分けて掲載していく予定です。
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            {SITE.areaText} を中心にした、ペット可物件の一部を掲載しています。
+            ここに載っていない物件も含めて、LINE で条件をお送りいただければ、
+            まとめて候補をお出しすることも可能です。
           </p>
         </div>
-
-        {/* ★ タブを右上に配置 */}
         <ListingTabs active="all" />
       </div>
     </header>
 
-    <section aria-label="物件一覧">
-      {listings.length === 0 ? (
-        <p class="text-sm text-slate-600">
-          現在、掲載中の物件はありません。LINEでご希望条件をお知らせください。
+    <!-- フィルタ＋一覧 -->
+    <section class="grid gap-6 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)]">
+      <!-- フィルタパネル -->
+      <aside class="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-800">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-xs font-semibold tracking-wide text-slate-900">
+            条件で絞り込む
+          </h2>
+          <button
+            type="button"
+            id="filter-reset"
+            class="text-[11px] font-semibold text-slate-500 hover:text-slate-800"
+          >
+            条件をクリア
+          </button>
+        </div>
+
+        <!-- エリア -->
+        <div class="space-y-1">
+          <p class="text-xs font-semibold text-slate-900">エリア</p>
+          <div class="space-y-1">
+            {cityOptions.map((city) => (
+              <label class="flex items-center gap-2 text-xs text-slate-700">
+                <input
+                  type="checkbox"
+                  value={city}
+                  class="js-filter-city h-3.5 w-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                />
+                <span>{city}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- ペット条件 -->
+        <div class="space-y-1">
+          <p class="text-xs font-semibold text-slate-900">ペット条件</p>
+          <div class="space-y-1">
+            {petTagOptions.map((tag) => (
+              <label class="flex items-center gap-2 text-xs text-slate-700">
+                <input
+                  type="checkbox"
+                  value={tag}
+                  class="js-filter-pet h-3.5 w-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                />
+                <span>{tag}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-500 leading-relaxed">
+          ※ フィルタはこのページ内の表示を切り替えるだけです。
+          条件に完全に一致する物件だけを保証するものではありません。
+          詳細な条件やペットの状況は、LINE で個別にご相談ください。
         </p>
-      ) : (
-        <div class="grid gap-6 md:grid-cols-2">
-          {listings.map((listing) => (
-            <ListingCard listing={listing} />
+      </aside>
+
+      <!-- 一覧 -->
+      <div class="space-y-3">
+        <div class="flex items-baseline justify-between gap-2">
+          <p id="listing-count" class="text-xs text-slate-600">
+            全 {allListings.length}件
+          </p>
+          <p class="text-[11px] text-slate-400">
+            条件に合わないお部屋もあるため、最終的な募集状況は必ずお問い合わせください。
+          </p>
+        </div>
+
+        <div
+          id="listing-results"
+          class="grid gap-4 md:grid-cols-2"
+        >
+          {allListings.map((listing) => (
+            <div
+              class="listing-item"
+              data-listing-item
+              data-city={listing.city}
+              data-deal-type={listing.dealType}
+              data-pet-tags={(listing.petTags ?? []).join(',')}
+            >
+              <ListingCard listing={listing} />
+            </div>
           ))}
         </div>
-      )}
+      </div>
     </section>
-  </main>
+  </div>
+
+  <!-- フロント側フィルタ用スクリプト -->
+  <script>
+    // NOTE: 極力プレーンな JavaScript だけで書いている。
+    //       「チェックボックスの変更に応じて、data-* 属性を見てカードを表示/非表示にする」だけ。
+    // ---------------------------------------------------------------------------
+    // フィルタ用の DOM 取得（型つき）
+    // ---------------------------------------------------------------------------
+  const cityInputs = Array.from(
+    document.querySelectorAll<HTMLInputElement>('input.js-filter-city'),
+  );
+  const petInputs = Array.from(
+    document.querySelectorAll<HTMLInputElement>('input.js-filter-pet'),
+  );
+
+  const items = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-listing-item]'),
+  );
+
+  const countEl = document.querySelector<HTMLElement>('#listing-count');
+  const resetButton =
+    document.querySelector<HTMLButtonElement>('#filter-reset');
+
+  // ---------------------------------------------------------------------------
+  // フィルタ本体
+  // ---------------------------------------------------------------------------
+  function applyFilter() {
+    // チェックされているエリア名一覧
+    const selectedCities = cityInputs
+      .filter((el) => el.checked)
+      .map((el) => el.value);
+
+    // チェックされているペット条件一覧
+    const selectedPets = petInputs
+      .filter((el) => el.checked)
+      .map((el) => el.value);
+
+    let visibleCount = 0;
+
+    items.forEach((el) => {
+      const city = el.getAttribute('data-city') || '';
+      const petTags = (el.getAttribute('data-pet-tags') || '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      let ok = true;
+
+      // エリア：1つ以上選ばれていれば、その中に含まれるものだけ残す
+      if (selectedCities.length > 0 && !selectedCities.includes(city)) {
+        ok = false;
+      }
+
+      // ペット条件：1つでもタグが被っていればOK
+      if (
+        ok &&
+        selectedPets.length > 0 &&
+        !selectedPets.some((tag) => petTags.includes(tag))
+      ) {
+        ok = false;
+      }
+
+      if (ok) {
+        el.classList.remove('hidden');
+        visibleCount += 1;
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    // 件数表示を更新
+    if (countEl) {
+      const total = items.length;
+      const text =
+        visibleCount === total
+          ? `全 ${total}件`
+          : `条件に合う物件 ${visibleCount}件（全 ${total}件中）`;
+      countEl.textContent = text;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // イベント登録
+  // ---------------------------------------------------------------------------
+  [...cityInputs, ...petInputs].forEach((el) => {
+    el.addEventListener('change', applyFilter);
+  });
+
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      [...cityInputs, ...petInputs].forEach((el) => {
+        el.checked = false;
+      });
+      applyFilter();
+    });
+  }
+
+  // 初期表示時にも一度フィルタ適用
+  applyFilter();
+</script>
+
 </BaseLayout>

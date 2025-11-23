@@ -1,51 +1,67 @@
 ---
+// src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ListingCard from '../components/listings/ListingCard.astro';
-import { getAllListings } from '../data/listings';  // ← TS のほうを読む
-
-const featured = getAllListings().slice(0, 2);      // ← JSON じゃなく関数経由
+import { getAllListings } from '../data/listings';
+import { SITE } from '../config/site';
+import CtaButtonRow from '../components/common/CtaButtonRow.astro';
+const featured = getAllListings().slice(0, 2);
+const pageTitle = `北摂でペットと暮らせる家探し｜${SITE.name}`;
 ---
 
-<BaseLayout title="北摂でペットと暮らせる家探し | 北摂ペットホーム（仮）">
-  <section class="mb-10">
-    <div class="py-10">
-      <h1 class="text-2xl md:text-3xl font-bold mb-3 leading-relaxed">
-        北摂で、ペットと暮らせる家探しを。<br />
-        来店不要、LINEとオンラインでまるごとサポート。
-      </h1>
-      <p class="text-sm text-gray-700 mb-4">
-        豊中・箕面・千里中央・茨木・高槻エリアのペット可物件に特化した仲介サービスです。
+<BaseLayout title={pageTitle}>
+  {/* ヒーロー */}
+  <section class="mx-auto max-w-5xl px-4 pt-10 pb-8 sm:px-6 lg:px-8">
+    <div class="space-y-4">
+      <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
+        PET-FRIENDLY HOME SEARCH IN HOKUSETSU
       </p>
-      <div class="flex flex-wrap gap-3">
-        <a
-          href="/contact/#line"
-          class="px-4 py-2 rounded bg-green-600 text-white text-sm"
-        >
-          LINEで相談する
-        </a>
-        <a
-          href="/listings/"
-          class="px-4 py-2 rounded border border-gray-300 text-sm"
-        >
-          物件一覧を見る
-        </a>
-      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
+        北摂で、ペットと暮らせる家探しを。<br class="hidden md:block" />
+        来店不要、LINEとオンラインでまるごと伴走します。
+      </h1>
+
+      <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+        {SITE.areaText}
+        を中心に、ペット可物件に特化してご紹介する小さな仲介サービスです。
+        「ペットの条件」をきちんと確認しながら、
+        無理のない住まい探しを一緒に整理していきます。
+      </p>
+
+      <CtaButtonRow
+        primaryHref="/contact/#line"
+        primaryLabel="ペット可物件の候補と空き状況をLINEで相談する"
+        secondaryHref="/listings/"
+        secondaryLabel="掲載中の物件一覧を見る"
+        size="md"
+      />
+
+      <p class="text-[11px] text-slate-500">
+        ※ 現在は起業準備中のプロトタイプサイトです。宅建業免許取得前のため、
+        実際の仲介業務は行っていません。くわしくは「運営者情報」のページをご覧ください。
+      </p>
     </div>
   </section>
 
-  <section class="mb-10">
-    <h2 class="text-xl font-semibold mb-3">
-      取り扱い物件の一部を、わかりやすくご紹介します。
-    </h2>
+  {/* ピックアップ物件 */}
+  <section class="mx-auto max-w-5xl px-4 pb-12 sm:px-6 lg:px-8 space-y-4">
+    <div class="flex items-baseline justify-between gap-3">
+      <h2 class="text-lg font-semibold text-slate-900">
+        掲載中のペット可物件（一部）
+      </h2>
+      <a
+        href="/listings/"
+        class="text-xs font-semibold text-emerald-700 hover:underline"
+      >
+        すべての物件を見る
+      </a>
+    </div>
+
     <div class="grid gap-4 md:grid-cols-2">
       {featured.map((item) => (
         <ListingCard listing={item} />
       ))}
-    </div>
-    <div class="mt-4">
-      <a href="/listings/" class="text-sm text-blue-600 underline">
-        物件をもっと見る
-      </a>
     </div>
   </section>
 </BaseLayout>

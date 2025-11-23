@@ -1,0 +1,55 @@
+---
+// src/components/common/CtaButtonRow.astro
+
+interface Props {
+  /** メインのボタン（たいてい LINE） */
+  primaryHref: string;
+  primaryLabel: string;
+
+  /** サブのボタン（任意） */
+  secondaryHref?: string;
+  secondaryLabel?: string;
+
+  /** ボタンのサイズ：ヒーロー = md、カード内 = sm */
+  size?: 'sm' | 'md';
+
+  /** true のときは横幅いっぱいに広げる（カード内など） */
+  fullWidth?: boolean;
+}
+
+const {
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel,
+  size = 'md',
+  fullWidth = false,
+} = Astro.props as Props;
+
+const baseButtonClass =
+  'inline-flex items-center justify-center rounded-full font-semibold transition-colors';
+
+const primarySizeClass =
+  size === 'sm' ? 'px-3 py-1.5 text-xs' : 'px-5 py-2 text-sm';
+
+const secondarySizeClass = primarySizeClass;
+const growClass = fullWidth ? 'flex-1' : '';
+---
+
+<div class="flex flex-wrap gap-3">
+  <a
+    href={primaryHref}
+    class={`${baseButtonClass} ${growClass} bg-emerald-600 text-white hover:bg-emerald-700 ${primarySizeClass}`}
+  >
+    {primaryLabel}
+  </a>
+
+  {secondaryHref && secondaryLabel && (
+    <a
+      href={secondaryHref}
+      class={`${baseButtonClass} ${growClass} border border-slate-300 text-slate-800 hover:bg-slate-50 ${secondarySizeClass}`}
+    >
+      {secondaryLabel}
+    </a>
+  )}
+</div>

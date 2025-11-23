@@ -2,12 +2,13 @@
 // src/pages/contact.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
+import CtaButtonRow from '../components/common/CtaButtonRow.astro';
 
 const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
-  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
 
     {/* ヒーロー：LINE集約 */}
     <section id="line" class="space-y-4">
@@ -24,21 +25,13 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
       </p>
 
       {/* LINE 友だち追加ボタン */}
-      <div class="flex flex-wrap gap-3 pt-2">
-        <a
-          href={SITE.lineUrl}
-          class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700"
-        >
-          LINEで相談する（友だち追加）
-        </a>
-        <a
-          href="/first-time/"
-          class="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
-        >
-          初めての方へ（ご利用の流れ）
-        </a>
-      </div>
-
+      <CtaButtonRow
+        primaryHref={SITE.lineUrl}
+        primaryLabel="LINEで相談する（友だち追加）"
+        secondaryHref="/first-time/"
+        secondaryLabel="初めての方へ（ご利用の流れ）"
+        size="md"
+      />
       <p class="text-xs text-slate-500">
         ※ 上記ボタンを押すとLINEアプリ（またはブラウザ版）が開きます。通信料はお客様のご負担となります。
       </p>
@@ -208,5 +201,5 @@ const pageTitle = `お問い合わせ・ご相談｜${SITE.name}`;
         ペット可物件の候補と空き状況をLINEで確認する
       </a>
     </section>
-  </main>
+  </div>
 </BaseLayout>

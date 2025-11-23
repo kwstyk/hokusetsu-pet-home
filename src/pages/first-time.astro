@@ -3,24 +3,27 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site';
 import PageHeader from '../components/common/PageHeader.astro';
+import CtaButtonRow from '../components/common/CtaButtonRow.astro';
+
 const pageTitle = `初めての方へ｜${SITE.name}`;
 ---
 
 <BaseLayout title={pageTitle}>
-  <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-10">
     <PageHeader
       label="FOR FIRST-TIME USERS"
       title="初めての方へ"
-      lead="北摂エリアでペットと暮らす住まい探しを、オンライン中心で一緒に進めていくための前提や流れをまとめたページです。まずはここだけ読めば、「このサービスが自分に合いそうか」を判断しやすくなる想定です。"
-      note="※ 現時点では個人開発中のテストサイトです。実際の仲介業務はまだ開始していません。文言や方針は今後の検討に応じて変更される可能性があります。"
+      lead="..."
+      note="※ 現在は起業準備中のプロトタイプサイトです。宅建業免許取得前のため、実際の仲介業務は行っていません。くわしくは「運営者情報」のページをご覧ください。"
       align="left"
     />
+
     <!-- ヒーロー -->
     <section class="space-y-4">
-      <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
+      <h2 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
         北摂で、ペットとの暮らしを優先した<br class="hidden md:block" />
         住まい探しをお手伝いします。
-      </h1>
+      </h2>
       <p class="text-sm md:text-base text-slate-700 leading-relaxed">
         「ペット可」と書いてあるのに、いざ詳しく聞くと条件が厳しすぎる・
         情報がバラバラでよく分からない…。<br class="hidden md:block" />
@@ -28,20 +31,15 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
         <span class="font-semibold">北摂エリアのペット可物件に特化</span>した仲介サービスとして、
         LINEとオンラインを中心にじっくり伴走します。
       </p>
-      <div class="flex flex-wrap gap-3 pt-1">
-        <a
-          href={SITE.lineUrl}
-          class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
-        >
-          まずはLINEで相談してみる
-        </a>
-        <a
-          href="/listings/"
-          class="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
-        >
-          物件一覧を見てみる
-        </a>
-      </div>
+
+      <CtaButtonRow
+        primaryHref={SITE.lineUrl}
+        primaryLabel="まずはLINEで相談してみる"
+        secondaryHref="/listings/"
+        secondaryLabel="物件一覧を見てみる"
+        size="md"
+      />
+
       <p class="text-xs text-slate-500 leading-relaxed">
         現在は試験運用中のため、実際のご相談受付状況や対応エリアの詳細はタイミングによって変わる場合があります。
         最新の状況はLINEでお問い合わせください。
@@ -312,12 +310,11 @@ const pageTitle = `初めての方へ｜${SITE.name}`;
         相談したからといって、必ず契約しないといけないわけではありません。
         情報整理の相棒くらいの気持ちで、気軽に使っていただければ十分です。
       </p>
-      <a
-        href="/contact/#line"
-        class="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800"
-      >
-        自分の条件で探せるペット可物件をLINEで聞いてみる
-      </a>
+      <CtaButtonRow
+        primaryHref="/contact/#line"
+        primaryLabel="自分の条件で探せるペット可物件をLINEで聞いてみる"
+        size="md"
+      />
     </section>
-  </main>
+  </div>
 </BaseLayout>

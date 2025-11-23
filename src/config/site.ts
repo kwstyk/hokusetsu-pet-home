@@ -1,7 +1,8 @@
 // src/config/site.ts
 export const SITE = {
-  name: '北摂しっぽ不動産',
-  shortName: '北摂しっぽ不動産',
+  name: '北摂しっぽ不動産',            // フルネーム（日本語）
+  shortName: '北摂しっぽ不動産',       // ヘッダーのバッジにも同じでOK
+  enName: 'Hokusetsu Shippo Realty',  // 必要なら
   areaText:
     '豊中・箕面・吹田・茨木・高槻など、いわゆる「北摂エリア」を中心に対応しています。',
   description: '北摂エリア（豊中・千里中央・箕面・茨木・高槻など）のペット可賃貸・ペット可マンション専門のオンライン仲介サービスです。',

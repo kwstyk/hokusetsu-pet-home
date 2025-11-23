@@ -10,42 +10,234 @@ import ListingTabs from '../../components/listings/ListingTabs.astro';
 const listings = getListingsByDealType('buy').filter(
   (l) => l.status === 'available',
 );
+
+// フィルタ用の選択肢を作る
+const cityOptions = Array.from(new Set(listings.map((l) => l.city))).sort();
+const petTagOptions = Array.from(
+  new Set(listings.flatMap((l) => l.petTags ?? [])),
+).sort();
+
+const pageTitle = `購入物件一覧（ペット可）｜${SITE.name}`;
 ---
 
-<BaseLayout
-  title="購入物件一覧｜北摂ペットホーム（仮）"
-  description="北摂エリアのペット可マンション・戸建てを、ペット目線で選べます。"
->
-    <header class="space-y-4">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+<BaseLayout title={pageTitle}>
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
+    <!-- ヘッダー -->
+    <header class="space-y-3">
+      <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
+        LISTINGS - BUY
+      </p>
+      <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
-            BUY
-          </p>
-          <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
-            購入物件を探す
+          <h1 class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-900">
+            ペットと暮らせる購入物件一覧（北摂エリア）
           </h1>
-          <p class="mt-2 text-sm text-slate-700">
-            北摂エリアでペットと暮らすための購入向け物件を、少しずつ追加していく予定です。
+          <p class="mt-1 text-sm text-slate-700 leading-relaxed">
+            {SITE.areaText}
+            のうち、「購入（売買）」かつペット可として掲載中の物件です。
+            管理規約やペット飼育細則は物件ごとに大きく異なるため、
+            実際に検討される際は必ず個別に条件を確認しながらご案内します。
           </p>
         </div>
-
         <ListingTabs active="buy" />
       </div>
     </header>
 
-    <section aria-label="購入物件一覧">
-      {listings.length === 0 ? (
-        <p class="text-sm text-slate-600">
-          現在、掲載中の購入物件はありません。LINEでご希望条件をお知らせください。
-        </p>
-      ) : (
-        <div class="grid gap-6 md:grid-cols-2">
-          {listings.map((listing) => (
-            <ListingCard listing={listing} />
-          ))}
+    <!-- フィルタ＋一覧 -->
+    <section class="grid gap-6 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)]">
+      <!-- フィルタパネル -->
+      <aside
+        class="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-800"
+      >
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-xs font-semibold tracking-wide text-slate-900">
+            条件で絞り込む
+          </h2>
+          <button
+            type="button"
+            id="filter-reset"
+            class="text-[11px] font-semibold text-slate-500 hover:text-slate-800"
+          >
+            条件をクリア
+          </button>
         </div>
-      )}
+
+        <!-- エリア -->
+        <div class="space-y-1">
+          <p class="text-xs font-semibold text-slate-900">エリア</p>
+          <div class="space-y-1">
+            {cityOptions.map((city) => (
+              <label class="flex items-center gap-2 text-xs text-slate-700">
+                <input
+                  type="checkbox"
+                  value={city}
+                  class="js-filter-city h-3.5 w-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                />
+                <span>{city}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- ペット条件 -->
+        <div class="space-y-1">
+          <p class="text-xs font-semibold text-slate-900">ペット条件</p>
+          <div class="space-y-1">
+            {petTagOptions.map((tag) => (
+              <label class="flex items-center gap-2 text-xs text-slate-700">
+                <input
+                  type="checkbox"
+                  value={tag}
+                  class="js-filter-pet h-3.5 w-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                />
+                <span>{tag}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-500 leading-relaxed">
+          ※ フィルタはこのページ内の表示を切り替えるだけです。
+          実際の管理規約やペット飼育の可否・頭数制限などは、物件ごとに異なります。
+          詳細は、候補が固まってから個別に確認していきます。
+        </p>
+      </aside>
+
+      <!-- 一覧 -->
+      <div class="space-y-3">
+        <div class="flex items-baseline justify-between gap-2">
+          <p id="listing-count" class="text-xs text-slate-600">
+            全 {listings.length}件
+          </p>
+          <p class="text-[11px] text-slate-400">
+            成約済み・非公開物件もあるため、気になるエリアがあればLINEで個別にご相談ください。
+          </p>
+        </div>
+
+        <div
+          id="listing-results"
+          class="grid gap-4 md:grid-cols-2"
+        >
+          {listings.length === 0 ? (
+            <p class="text-sm text-slate-600">
+              現在、掲載中の購入物件はありません。
+              ご予算やエリア、ペットの条件をお送りいただければ、
+              近い条件の物件や今後出てきそうな候補のイメージを一緒に整理していきます。
+            </p>
+          ) : (
+            listings.map((listing) => (
+              <div
+                class="listing-item"
+                data-listing-item
+                data-city={listing.city}
+                data-deal-type={listing.dealType}
+                data-pet-tags={(listing.petTags ?? []).join(',')}
+              >
+                <ListingCard listing={listing} />
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </section>
-  </main>
+  </div>
+
+  <!-- フロント側フィルタ用スクリプト -->
+<script>
+  // ---------------------------------------------------------------------------
+  // フィルタ用の DOM 取得（型つき）
+  // ---------------------------------------------------------------------------
+  const cityInputs = Array.from(
+    document.querySelectorAll<HTMLInputElement>('input.js-filter-city'),
+  );
+  const petInputs = Array.from(
+    document.querySelectorAll<HTMLInputElement>('input.js-filter-pet'),
+  );
+
+  const items = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-listing-item]'),
+  );
+
+  const countEl = document.querySelector<HTMLElement>('#listing-count');
+  const resetButton =
+    document.querySelector<HTMLButtonElement>('#filter-reset');
+
+  // ---------------------------------------------------------------------------
+  // フィルタ本体
+  // ---------------------------------------------------------------------------
+  function applyFilter() {
+    // チェックされているエリア名一覧
+    const selectedCities = cityInputs
+      .filter((el) => el.checked)
+      .map((el) => el.value);
+
+    // チェックされているペット条件一覧
+    const selectedPets = petInputs
+      .filter((el) => el.checked)
+      .map((el) => el.value);
+
+    let visibleCount = 0;
+
+    items.forEach((el) => {
+      const city = el.getAttribute('data-city') || '';
+      const petTags = (el.getAttribute('data-pet-tags') || '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      let ok = true;
+
+      // エリア：1つ以上選ばれていれば、その中に含まれるものだけ残す
+      if (selectedCities.length > 0 && !selectedCities.includes(city)) {
+        ok = false;
+      }
+
+      // ペット条件：1つでもタグが被っていればOK
+      if (
+        ok &&
+        selectedPets.length > 0 &&
+        !selectedPets.some((tag) => petTags.includes(tag))
+      ) {
+        ok = false;
+      }
+
+      if (ok) {
+        el.classList.remove('hidden');
+        visibleCount += 1;
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    // 件数表示を更新
+    if (countEl) {
+      const total = items.length;
+      const text =
+        visibleCount === total
+          ? `全 ${total}件`
+          : `条件に合う物件 ${visibleCount}件（全 ${total}件中）`;
+      countEl.textContent = text;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // イベント登録
+  // ---------------------------------------------------------------------------
+  [...cityInputs, ...petInputs].forEach((el) => {
+    el.addEventListener('change', applyFilter);
+  });
+
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      [...cityInputs, ...petInputs].forEach((el) => {
+        el.checked = false;
+      });
+      applyFilter();
+    });
+  }
+
+  // 初期表示時にも一度フィルタ適用
+  applyFilter();
+</script>
+
 </BaseLayout>

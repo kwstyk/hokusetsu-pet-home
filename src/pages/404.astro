@@ -8,17 +8,19 @@ const pageTitle = `ページが見つかりません｜${SITE.name}`;
 
 <BaseLayout title={pageTitle}>
   <main class="mx-auto flex min-h-[60vh] max-w-5xl flex-col items-center justify-center px-4 py-10 text-sm text-slate-700 sm:px-6 lg:px-8">
-    <p class="text-[11px] font-semibold tracking-wide text-emerald-700">
-      404 NOT FOUND
-    </p>
-
-    <h1 class="mt-2 text-center text-2xl font-bold text-slate-900 md:text-3xl">
-      お探しのページが見つかりませんでした。
-    </h1>
-
-    <p class="mt-4 max-w-xl text-center text-sm md:text-base text-slate-700 leading-relaxed">
-      URL が間違っているか、ページが移動・削除された可能性があります。
-      まだ準備中のコンテンツも多いため、リンク切れが発生している場合があります。
+    <p class="mt-6 max-w-xl text-center text-[11px] text-slate-500">
+      ※ 現在は起業準備中のプロトタイプサイトのため、
+      リンク切れや未公開のページが含まれている場合があります。
+      くわしい運営状況は
+      <a href="/about/" class="font-semibold text-emerald-700 hover:underline">
+        運営者情報
+      </a>
+      をご確認ください。
+      もし不具合を見つけた場合は、
+      <a href="/contact/" class="font-semibold text-emerald-700 hover:underline">
+        LINE 相談窓口
+      </a>
+      から「サイトで見つからないページがある」とお知らせいただけると助かります。
     </p>
 
     <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm">
